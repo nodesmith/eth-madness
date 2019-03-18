@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { NavLink } from 'react-router-dom';
+import MadeWithBasketball from './MadeWithBasketball';
 
 const styles = theme => ({
   root: {
@@ -30,11 +31,6 @@ const styles = theme => ({
   },
   ol: {
     fontFamily: 'monospace',
-  },
-  footer: {
-    textAlign: 'center',
-    padding: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 4
   },
   normalLink: {
     textDecoration: 'none',
@@ -133,9 +129,7 @@ function HomePage(props) {
             <li><Typography className={classes.bodyText}>A tiny amount of Ether to cover your bracket submission's gas cost.</Typography></li>
           </ol>
         </Grid>
-        <Grid item {...sizes} className={classes.footer}>
-          <Typography>Made with <span role="img" aria-label="basketball">🏀</span>by <a target="_blank" rel="noopener noreferrer" href="https://nodesmith.io">Nodesmith</a></Typography>
-        </Grid>
+        <MadeWithBasketball sizes={sizes} />
       </Grid>
     </div>
   );

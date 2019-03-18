@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { NavLink } from 'react-router-dom';
+import MadeWithBasketball from './MadeWithBasketball';
 
 const styles = theme => ({
   root: {
@@ -116,6 +117,7 @@ class Leaderboard extends Component {
             </Table>
           </Paper>
           </Grid>
+          <MadeWithBasketball sizes={sizes} />
         </Grid>
       </div>
     );
