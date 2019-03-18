@@ -124,7 +124,7 @@ function HomePage(props) {
           </Typography>
           <ol>
             <li><Typography className={classes.bodyText}>An Ethereum wallet (for example: <a href="https://metamask.io/">MetaMask</a>)</Typography></li>
-            <li><Typography className={classes.bodyText}>A tiny about of Ether to cover your bracket submission's gas cost.</Typography></li>
+            <li><Typography className={classes.bodyText}>A tiny amount of Ether to cover your bracket submission's gas cost.</Typography></li>
           </ol>
         </Grid>
         <Grid item xs={12} className={classes.footer}>
