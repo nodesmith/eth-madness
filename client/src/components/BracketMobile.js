@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -10,26 +10,49 @@ import TournamentRoundMobile from './TournamentRoundMobile';
 
 const styles = theme => ({
   root: {
-    width: '100%'
+    width: '100%',
+    flexGrow: 1
   },
+  roundTitle: {
+    backgroundColor: theme.palette.grey['50'],
+    marginTop: -theme.spacing.unit
+  }
 });
+
+const roundDescriptions = {
+  1: 'First Round',
+  2: 'Round of 32',
+  3: 'Sweet 16',
+  4: 'Elite 8',
+  5: 'Final Four',
+  6: 'Championship'
+}
 
 /**
  * Layout container for the main sections of the Bracket (four regions & one final four component).
  */
 class BracketMobile extends Component {
-  state = { currentRound: 1, numRounds: 6 }
+  state = { currentRound: 6, numRounds: 6 }
 
   createRound = (roundNumber) => {
-    const { classes, makePick, numRounds, isEditable, games } = this.props;
+    const { topTeamScore, bottomTeamScore, message, encodedPicks, submitPicks, submitEnabled, makePick, numRounds, isEditable, games, changeBracketProperty } = this.props;
     const gamesInRound = games.filter(g => g.round === roundNumber);
+
     return (
       <TournamentRoundMobile
-          makePick={makePick}
-          key={roundNumber}
-          games={gamesInRound}
-          roundNumber={roundNumber}
-          isEditable={isEditable} />
+        isFinals={roundNumber === numRounds}
+        makePick={makePick}
+        key={roundNumber}
+        games={gamesInRound}
+        roundNumber={roundNumber}
+        isEditable={isEditable}
+        submitEnabled={submitEnabled}
+        changeBracketProperty={changeBracketProperty} 
+        submitPicks={submitPicks}
+        encodedPicks={encodedPicks}
+        topTeamScore={topTeamScore}
+        bottomTeamScore={bottomTeamScore}
+        message={message}/>
       );
   }
 
@@ -65,6 +88,9 @@ class BracketMobile extends Component {
               </Button>
             }
           />
+          </Grid>
+          <Grid item xs={12} className={classes.roundTitle}>
+            <Typography align="center" variant="h6">{roundDescriptions[currentRound]}</Typography>
           </Grid>
           <Grid item xs={12}>
             { this.createRound(currentRound) }
