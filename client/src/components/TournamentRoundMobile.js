@@ -78,8 +78,8 @@ class TournamentRoundMobile extends Component {
                   />)
                   :
                   (
-                    [<Typography key="score" align="center" variant="body1">{topTeamScore}</Typography>,
-                    <Typography key="label" align="center" variant="caption">Score B</Typography>]
+                    [<Typography key="score" align="center" variant="h4">{topTeamScore}</Typography>,
+                    <Typography key="label" align="center" variant="body1">Score A</Typography>]
                   )
                 }
           </Grid>
@@ -100,8 +100,8 @@ class TournamentRoundMobile extends Component {
                   />)
                   :
                   (
-                    [<Typography key="score"  align="center" variant="body1">{bottomTeamScore}</Typography>,
-                    <Typography key="label" align="center" variant="caption">Score B</Typography>]
+                    [<Typography key="score"  align="center" variant="h4">{bottomTeamScore}</Typography>,
+                    <Typography key="label" align="center" variant="body1">Score B</Typography>]
                   )
                 }
           </Grid>
@@ -118,15 +118,14 @@ class TournamentRoundMobile extends Component {
                     onChange={(event) => changeBracketProperty('bracketName', event.target.value)}
                   />)
                   :
-                  (
-                    [<Typography key="score"  align="center" variant="body1">{bottomTeamScore}</Typography>,
-                    <Typography key="label" align="center" variant="caption">Score B</Typography>]
-                  )
+                  null
                 }
           </Grid>
+          { isEditable && 
           <Grid item xs={12}>
             <Button className={classes.submitButton} color="primary" fullWidth variant="contained" disabled={!submitEnabled} onClick={() => this.submitPicks()} >Submit Bracket</Button>
           </Grid>
+          }
         </Grid>
       </div>
     );

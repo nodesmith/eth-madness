@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, Typography } from '@material-ui/core';
+import { withStyles, Typography, Hidden } from '@material-ui/core';
 import Bracket from './Bracket';
-import _ from 'lodash';
+import BracketMobile from './BracketMobile';
 
 const styles = theme => ({
   root: {
@@ -13,10 +13,20 @@ const styles = theme => ({
   },
   bracket: {
     margin: '0 auto',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing.unit
+    },
     marginTop: -30
   },
   titleBar: {
-    paddingTop: theme.spacing.unit * 2
+    maxWidth: '100%',
+    paddingTop: theme.spacing.unit * 2,
+    margin: theme.spacing.unit,
+  },
+  title: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   }
 });
 
@@ -30,9 +40,10 @@ class ViewEntry extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.titleBar}>
-          <Typography align="center" variant="h4">{bracketName}</Typography>
+          <Typography className={classes.title} align="center" variant="h4">{bracketName}</Typography>
           <Typography align="center" variant="caption"><a href={`https://etherscan.io/tx/${transactionHash}`} target="_blank">{submitter}</a></Typography>
         </div>
+        <Hidden smDown>
         <Bracket
           classes={{root: classes.bracket}}
           games={games}
@@ -47,6 +58,23 @@ class ViewEntry extends Component {
           changeBracketProperty={changeBracketProperty}
           isEditable={false}
           />
+        </Hidden>
+        <Hidden mdUp>
+        <BracketMobile
+          classes={{root: classes.bracket}}
+          games={games}
+          makePick={makePick}
+          numRounds={numRounds}
+          submitPicks={submitPicks}
+          submitEnabled={submitEnabled}
+          encodedPicks={encodedPicks}
+          topTeamScore={topTeamScore}
+          bottomTeamScore={bottomTeamScore}
+          message={message}
+          changeBracketProperty={changeBracketProperty}
+          isEditable={false}
+          />
+        </Hidden>
       </div>
     );
   }
