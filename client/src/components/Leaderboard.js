@@ -7,15 +7,15 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 import { NavLink } from 'react-router-dom';
 
-const tableWidth = 850
 const styles = theme => ({
   root: {
+    padding: 12
   },
   container: {
     margin: '0 auto',
-    width: tableWidth
   },
   header: {
     paddingTop: theme.spacing.unit * 2,
@@ -29,6 +29,7 @@ const styles = theme => ({
     textAlign: 'left'
   },
   tableContainer: {
+    overflowX: 'auto',
   },
   loadingContainer: {
     display: 'flex',
@@ -56,29 +57,34 @@ class Leaderboard extends Component {
     
     const { classes, entryCount, searchValue, changeSearch, data } = this.props;
     const isLoading = entryCount < 0;
+    const sizes = { xl: 7, lg: 8, md: 9, sm: 11, xs: 12};
 
     return (
       <div className={classes.root}>
-        <div className={classes.container}>
-          <div className={classes.header}>
-            <Typography variant="h4" align="center">Leaderboard</Typography>
-            <Typography variant="caption" align="center">
-              {isLoading ? `Loading...` : `${entryCount} entries`}
-            </Typography>
-          </div>
+        <Grid container justify="center" >
+          <Grid item {...sizes}>
+            <div className={classes.header}>
+              <Typography variant="h4" align="center">Leaderboard</Typography>
+              <Typography variant="caption" align="center">
+                {isLoading ? `Loading...` : `${entryCount} entries`}
+              </Typography>
+            </div>
+          </Grid>
+          <Grid item {...sizes}>
           <div className={classes.searchContainer}>
             <TextField disabled={isLoading} InputProps={{classes: {input: classes.searchInput}}} fullWidth variant="outlined" 
               label="Search for bracket name or submitter address" margin="dense"
               value={searchValue} onChange={(event) => changeSearch(event.target.value)}/>
           </div>
+          </Grid>
+          <Grid item {...sizes}>
           <Paper className={classes.tableContainer}>
-            <Table className={classes.table}>
+            <Table padding="dense" className={classes.table}>
               <TableHead>
                 <TableRow>
                   <TableCell>Bracket Name</TableCell>
-                  <TableCell align="left">Score</TableCell>
+                  <TableCell align="center">Score</TableCell>
                   <TableCell>Submitter</TableCell>
-                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -86,7 +92,7 @@ class Leaderboard extends Component {
                   isLoading ? 
                   (
                     <TableRow>
-                      <TableCell colSpan={4}>
+                      <TableCell colSpan={3}>
                       <div className={classes.loadingContainer}>
                         <CircularProgress />
                       </div>
@@ -97,18 +103,20 @@ class Leaderboard extends Component {
                   data.map(row => (
                     <TableRow key={row.entryIndex}>
                       <TableCell component="th" scope="row">
-                        {row.bracketName || '(Unnamed Bracket)'} 
+                        <NavLink to={{ pathname: `/bracket/${row.entryIndex}`, search: this.props.location.search}}>
+                          {row.bracketName || '(Unnamed Bracket)'} 
+                        </NavLink>
                       </TableCell>
-                      <TableCell align="left">{row.score > 0 ? row.score : '-'}</TableCell>
+                      <TableCell align="center">{row.score > 0 ? row.score : '-'}</TableCell>
                       <TableCell align="left">{row.entrant}</TableCell>
-                      <TableCell align="left"><NavLink to={{ pathname: `/bracket/${row.entryIndex}`, search: this.props.location.search}}>View</NavLink></TableCell>
                     </TableRow>
                   ))
                 }
               </TableBody>
             </Table>
           </Paper>
-        </div>
+          </Grid>
+        </Grid>
       </div>
     );
   }

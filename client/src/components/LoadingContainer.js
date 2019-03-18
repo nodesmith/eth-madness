@@ -12,7 +12,7 @@ const LoadingContainer = (props) => {
     // Trigger the load action, this shouldn't trigger one if one is already in progress
     loadAction();
     return (
-      <div>
+      <div style={{display: 'flex', justifyContent: 'center', paddingTop: 32}}>
         <CircularProgress />
       </div>
     );

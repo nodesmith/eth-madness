@@ -8,11 +8,15 @@ import { NavLink } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 0,
   },
   header: {
     textAlign: 'center',
     fontFamily: 'monospace',
+    [theme.breakpoints.down('sm')]: {
+      // https://css-tricks.com/fitting-text-to-a-container/
+      fontSize: '5.1vw',
+    },
     fontSize: '1.7rem',
     marginTop: theme.spacing.unit * 3
   },
@@ -49,15 +53,17 @@ const styles = theme => ({
 function HomePage(props) {
   const { classes } = props;
 
+  const sizes = { xl: 7, lg: 8, md: 9, sm: 10, xs: 12};
+
   return (
     <div style={{ padding: 12 }}> { /* https://material-ui.com/layout/grid/#negative-margin */}
       <Grid container className={classes.root} justify="center" spacing={24}>
-        <Grid item xs={8}>
+        <Grid item {...sizes}>
           <Typography className={classes.header}>
             <span role="img" aria-label="basketball icon">🏀</span> Welcome to Eth Madness! <span role="img" aria-label="basketball icon">🏀</span>
           </Typography>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item {...sizes}>
           <Typography className={classes.title}>
             What is this?
           </Typography>
@@ -67,13 +73,13 @@ function HomePage(props) {
             Eth Madness is a smart contract based NCAA bracket challenge.
           </Typography>
         </Grid>
-        <Grid container item xs={8} justify="center" style={{ marginTop: 16}}>
+        <Grid container item {...sizes} justify="center" style={{ marginTop: 16}}>
           <NavLink to={{ pathname: '/enter', search: props.location.search}} className={classes.createButton}>
             <Button fullWidth variant="contained" color="primary">Create a Bracket Now!</Button>
           </NavLink>
         </Grid>
 
-        <Grid item xs={8}>
+        <Grid item {...sizes}>
           <Typography className={classes.title}>
             The Prize:
           </Typography>
@@ -91,7 +97,7 @@ function HomePage(props) {
 
         </Grid>
 
-      <Grid item xs={8}>
+      <Grid item {...sizes}>
         <Typography className={classes.title}>
           How it works:
         </Typography>
@@ -114,7 +120,7 @@ function HomePage(props) {
           </Typography>
         </Grid>
 
-        <Grid item xs={8}>
+        <Grid item {...sizes}>
           <Typography className={classes.title}>
             What you'll need:
           </Typography>
@@ -127,7 +133,7 @@ function HomePage(props) {
             <li><Typography className={classes.bodyText}>A tiny amount of Ether to cover your bracket submission's gas cost.</Typography></li>
           </ol>
         </Grid>
-        <Grid item xs={12} className={classes.footer}>
+        <Grid item {...sizes} className={classes.footer}>
           <Typography>Made with <span role="img" aria-label="basketball">🏀</span>by <a target="_blank" rel="noopener noreferrer" href="https://nodesmith.io">Nodesmith</a></Typography>
         </Grid>
       </Grid>
