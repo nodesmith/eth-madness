@@ -17,12 +17,19 @@ const styles = theme => ({
   },
   bracket: {
     margin: '0 auto',
+    marginTop: 40,
     [theme.breakpoints.down('sm')]: {
       marginTop: 0
     },
-    
-    marginTop: theme.spacing.unit * -5
+
+    // marginTop: theme.spacing.unit * -5
   },
+  header: {
+    position: 'fixed',
+    top: 60,
+    left: 0,
+    right: 0
+  }
 });
 
 /**
@@ -34,7 +41,9 @@ class CreateEntry extends Component {
     const createEntryProps = _.pick(this.props, 'perfectPicks', 'makeRandomPicks', 'clearPicks', 'topSeedPicks');
     return (
       <div className={classes.root}>
-        <CreateEntryToolbar {...createEntryProps} />
+        <div className={classes.header}>
+          <CreateEntryToolbar {...createEntryProps} />
+        </div>
         <Hidden smDown>
           <Bracket 
             classes={{root: classes.bracket}}

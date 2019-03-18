@@ -71,7 +71,7 @@ class TournamentRoundMobile extends Component {
                   <TextField
                     className={classes.score}
                     variant="outlined"
-                    helperText="Score A"
+                    helperText="Winner Score"
                     margin="dense"
                     value={topTeamScore}
                     onChange={(event) => changeBracketProperty('teamA', event.target.value)}
@@ -79,11 +79,11 @@ class TournamentRoundMobile extends Component {
                   :
                   (
                     [<Typography key="score" align="center" variant="h4">{topTeamScore}</Typography>,
-                    <Typography key="label" align="center" variant="body1">Score A</Typography>]
+                    <Typography key="label" align="center" variant="body1">Winner Score</Typography>]
                   )
                 }
           </Grid>
-          <Grid xs={4} className={classes.finalScoreLabel}>
+          <Grid item xs={4} className={classes.finalScoreLabel}>
             <Typography align="center" variant="caption">Final<br />Score</Typography>
           </Grid>
           <Grid item xs={4}>
@@ -93,7 +93,7 @@ class TournamentRoundMobile extends Component {
                   <TextField
                     className={classes.score}
                     variant="outlined"
-                    helperText="Score B"
+                    helperText="Loser Score"
                     margin="dense"
                     value={bottomTeamScore}
                     onChange={(event) => changeBracketProperty('teamB', event.target.value)}
@@ -101,7 +101,7 @@ class TournamentRoundMobile extends Component {
                   :
                   (
                     [<Typography key="score"  align="center" variant="h4">{bottomTeamScore}</Typography>,
-                    <Typography key="label" align="center" variant="body1">Score B</Typography>]
+                    <Typography key="label" align="center" variant="body1">Loser Score</Typography>]
                   )
                 }
           </Grid>

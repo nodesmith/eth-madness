@@ -91,7 +91,7 @@ class FinalFour extends Component {
           <TextField
             className={classes.score}
             variant="outlined"
-            helperText="Score A"
+            helperText="Winner Score"
             margin="dense"
             value={topTeamScore}
             onChange={(event) => changeBracketProperty('teamA', event.target.value)}
@@ -100,7 +100,7 @@ class FinalFour extends Component {
           <TextField
             className={classes.score}
             variant="outlined"
-            helperText="Score B"
+            helperText="Loser Score"
             margin="dense"
             value={bottomTeamScore}
             onChange={(event) => changeBracketProperty('teamB', event.target.value)}
@@ -131,12 +131,12 @@ class FinalFour extends Component {
         <div className={classes.scoreContainer} >
           <div className={classes.staticScoreContainer} >
             <Typography align="center" variant="body1">{topTeamScore}</Typography>
-            <Typography align="center" variant="caption">Score A</Typography>
+            <Typography align="center" variant="caption">Winner Score</Typography>
           </div>
           { this.createGame(games[2], makePick) }
           <div className={classes.staticScoreContainer} >
             <Typography align="center" variant="body1">{bottomTeamScore}</Typography>
-            <Typography align="center" variant="caption">Score B</Typography>
+            <Typography align="center" variant="caption">Loser Score</Typography>
           </div>
         </div>
       </Paper>

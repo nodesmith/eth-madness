@@ -4,11 +4,20 @@ import { withStyles, Button } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    padding: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit * 2,
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'space-around',
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing.unit,
-      display: 'flex',
-      justifyContent: 'space-around',
+    },
+  },
+  buttonContainer: {
+    maxWidth: 400,
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing.unit,
+      width: '100%',
+      maxWidth: '100%'
     },
   },
   button: {
@@ -16,7 +25,8 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     [theme.breakpoints.down('sm')]: {
-      width: '30vw'
+      width: '30vw',
+      margin: 2
     },
   }
 });
@@ -29,9 +39,11 @@ class CreateEntryToolbar extends Component {
     const { classes, makeRandomPicks, clearPicks, perfectPicks, topSeedPicks } = this.props;
     return (
       <div className={classes.root}>
-        <Button className={classes.button} variant="outlined" onClick={makeRandomPicks}>Random</Button>
-        <Button className={classes.button} variant="outlined" onClick={topSeedPicks}>Top Seed</Button>
-        <Button className={classes.button} variant="outlined" onClick={clearPicks}>Clear</Button>
+        <div className={classes.buttonContainer}>
+          <Button className={classes.button} variant="outlined" onClick={makeRandomPicks}>Random</Button>
+          <Button className={classes.button} variant="outlined" onClick={topSeedPicks}>Top Seed</Button>
+          <Button className={classes.button} variant="outlined" onClick={clearPicks}>Clear</Button>
+        </div>
       </div>
     );
   }
