@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
+import Hidden from '@material-ui/core/Hidden';
 import Bracket from './Bracket';
+import BracketMobile from './BracketMobile';
 import CreateEntryToolbar from './CreateEntryToolbar';
 import SubmitPicksContainer from '../containers/SubmitPicksContainer';
 import _ from 'lodash';
@@ -15,6 +17,10 @@ const styles = theme => ({
   },
   bracket: {
     margin: '0 auto',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 0
+    },
+    
     marginTop: theme.spacing.unit * -5
   },
 });
@@ -29,7 +35,24 @@ class CreateEntry extends Component {
     return (
       <div className={classes.root}>
         <CreateEntryToolbar {...createEntryProps} />
-        <Bracket 
+        <Hidden smDown>
+          <Bracket 
+            classes={{root: classes.bracket}}
+            games={games}
+            makePick={makePick}
+            numRounds={numRounds}
+            submitPicks={submitPicks}
+            submitEnabled={submitEnabled}
+            encodedPicks={encodedPicks}
+            topTeamScore={topTeamScore}
+            bottomTeamScore={bottomTeamScore}
+            message={message}
+            changeBracketProperty={changeBracketProperty}
+            isEditable={true}
+            />
+        </Hidden>
+        <Hidden mdUp>
+        <BracketMobile
           classes={{root: classes.bracket}}
           games={games}
           makePick={makePick}
@@ -43,6 +66,7 @@ class CreateEntry extends Component {
           changeBracketProperty={changeBracketProperty}
           isEditable={true}
           />
+        </Hidden>
         <SubmitPicksContainer />
       </div>
     );

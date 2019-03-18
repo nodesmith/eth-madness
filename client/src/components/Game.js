@@ -7,6 +7,10 @@ export const MARGIN = 12;
 export const WIDTH = 150;
 const styles = theme => ({
   root: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      height: 81
+    },
     width: WIDTH,
     height: HEIGHT,
     pointerEvents: 'all'
@@ -17,6 +21,9 @@ const styles = theme => ({
     backgroundColor: theme.palette.grey['300']
   },
   team: {
+    [theme.breakpoints.down('sm')]: {
+      height: 40
+    },
     width: '100%',
     height: 20,
     overflow: 'hidden',
@@ -32,12 +39,21 @@ const styles = theme => ({
   teamName: {
     width: '100%',
     paddingLeft: 4,
+    [theme.breakpoints.down('sm')]: {
+      lineHeight: '40px',
+      fontSize: 16
+    },
     lineHeight: '20px',
     fontFamily: theme.typography.fontFamily,
     fontSize: 10,
     whiteSpace: 'nowrap'
   },
   teamSeed: {
+    [theme.breakpoints.down('sm')]: {
+      lineHeight: '40px',
+      fontSize: 16,
+      width: 40
+    },
     lineHeight: '20px',
     fontFamily: theme.typography.fontFamily,
     fontSize: 10,

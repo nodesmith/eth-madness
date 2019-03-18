@@ -4,12 +4,20 @@ import { withStyles, Button } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    padding: theme.spacing.unit * 2
+    padding: theme.spacing.unit * 2,
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing.unit,
+      display: 'flex',
+      justifyContent: 'space-around',
+    },
   },
   button: {
     width: 100,
     marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
+    [theme.breakpoints.down('sm')]: {
+      width: '30vw'
+    },
   }
 });
 

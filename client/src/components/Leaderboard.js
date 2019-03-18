@@ -24,6 +24,7 @@ const styles = theme => ({
   },
   searchContainer: {
     marginBottom: theme.spacing.unit * 2,
+    overflow: 'hidden'
   },
   searchInput: {
     padding: theme.spacing.unit * 2,
@@ -74,7 +75,7 @@ class Leaderboard extends Component {
           <Grid item {...sizes}>
           <div className={classes.searchContainer}>
             <TextField disabled={isLoading} InputProps={{classes: {input: classes.searchInput}}} fullWidth variant="outlined" 
-              label="Search for bracket name or submitter address" margin="dense"
+              label="Search by bracket name or submitter address" margin="dense"
               value={searchValue} onChange={(event) => changeSearch(event.target.value)}/>
           </div>
           </Grid>
