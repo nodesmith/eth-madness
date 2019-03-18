@@ -1,0 +1,322 @@
+[
+  {
+    "teamId": 0,
+    "teamName": "Villanova",
+    "seed": 1
+  },
+  {
+    "teamId": 1,
+    "teamName": "Mount St. Mary's",
+    "seed": 16
+  },
+  {
+    "teamId": 2,
+    "teamName": "Wisconsin",
+    "seed": 8
+  },
+  {
+    "teamId": 3,
+    "teamName": "Virginia Tech",
+    "seed": 9
+  },
+  {
+    "teamId": 4,
+    "teamName": "Virginia",
+    "seed": 5
+  },
+  {
+    "teamId": 5,
+    "teamName": "UNC Wilmington",
+    "seed": 12
+  },
+  {
+    "teamId": 6,
+    "teamName": "Florida",
+    "seed": 4
+  },
+  {
+    "teamId": 7,
+    "teamName": "East Tennessee State",
+    "seed": 13
+  },
+  {
+    "teamId": 8,
+    "teamName": "SMU",
+    "seed": 6
+  },
+  {
+    "teamId": 9,
+    "teamName": "USC",
+    "seed": 11
+  },
+  {
+    "teamId": 10,
+    "teamName": "Baylor",
+    "seed": 3
+  },
+  {
+    "teamId": 11,
+    "teamName": "New Mexico State",
+    "seed": 14
+  },
+  {
+    "teamId": 12,
+    "teamName": "South Carolina",
+    "seed": 7
+  },
+  {
+    "teamId": 13,
+    "teamName": "Marquette",
+    "seed": 10
+  },
+  {
+    "teamId": 14,
+    "teamName": "Duke",
+    "seed": 2
+  },
+  {
+    "teamId": 15,
+    "teamName": "Troy",
+    "seed": 15
+  },
+  {
+    "teamId": 16,
+    "teamName": "Gonzaga",
+    "seed": 1
+  },
+  {
+    "teamId": 17,
+    "teamName": "South Dakota State",
+    "seed": 16
+  },
+  {
+    "teamId": 18,
+    "teamName": "Northwestern",
+    "seed": 8
+  },
+  {
+    "teamId": 19,
+    "teamName": "Vanderbilt",
+    "seed": 9
+  },
+  {
+    "teamId": 20,
+    "teamName": "Notre Dame",
+    "seed": 5
+  },
+  {
+    "teamId": 21,
+    "teamName": "Princeton",
+    "seed": 12
+  },
+  {
+    "teamId": 22,
+    "teamName": "West Virginia",
+    "seed": 4
+  },
+  {
+    "teamId": 23,
+    "teamName": "Bucknell",
+    "seed": 13
+  },
+  {
+    "teamId": 24,
+    "teamName": "Maryland",
+    "seed": 6
+  },
+  {
+    "teamId": 25,
+    "teamName": "Xavier",
+    "seed": 11
+  },
+  {
+    "teamId": 26,
+    "teamName": "Florida State",
+    "seed": 3
+  },
+  {
+    "teamId": 27,
+    "teamName": "Florida Gulf Coast",
+    "seed": 14
+  },
+  {
+    "teamId": 28,
+    "teamName": "Saint Mary's",
+    "seed": 7
+  },
+  {
+    "teamId": 29,
+    "teamName": "VCU",
+    "seed": 10
+  },
+  {
+    "teamId": 30,
+    "teamName": "Arizona",
+    "seed": 2
+  },
+  {
+    "teamId": 31,
+    "teamName": "North Dakota",
+    "seed": 15
+  },
+  {
+    "teamId": 32,
+    "teamName": "Kansas",
+    "seed": 1
+  },
+  {
+    "teamId": 33,
+    "teamName": "UC Davis",
+    "seed": 16
+  },
+  {
+    "teamId": 34,
+    "teamName": "Miami (FL)",
+    "seed": 8
+  },
+  {
+    "teamId": 35,
+    "teamName": "Michigan State",
+    "seed": 9
+  },
+  {
+    "teamId": 36,
+    "teamName": "Iowa State",
+    "seed": 5
+  },
+  {
+    "teamId": 37,
+    "teamName": "Nevada",
+    "seed": 12
+  },
+  {
+    "teamId": 38,
+    "teamName": "Purdue",
+    "seed": 4
+  },
+  {
+    "teamId": 39,
+    "teamName": "Vermont",
+    "seed": 13
+  },
+  {
+    "teamId": 40,
+    "teamName": "Creighton",
+    "seed": 6
+  },
+  {
+    "teamId": 41,
+    "teamName": "Rhode Island",
+    "seed": 11
+  },
+  {
+    "teamId": 42,
+    "teamName": "Oregon",
+    "seed": 3
+  },
+  {
+    "teamId": 43,
+    "teamName": "Iona",
+    "seed": 14
+  },
+  {
+    "teamId": 44,
+    "teamName": "Michigan",
+    "seed": 7
+  },
+  {
+    "teamId": 45,
+    "teamName": "Oklahoma State",
+    "seed": 10
+  },
+  {
+    "teamId": 46,
+    "teamName": "Louisville",
+    "seed": 2
+  },
+  {
+    "teamId": 47,
+    "teamName": "Jacksonville State",
+    "seed": 15
+  },
+  {
+    "teamId": 48,
+    "teamName": "North Carolina",
+    "seed": 1
+  },
+  {
+    "teamId": 49,
+    "teamName": "Texas Southern",
+    "seed": 16
+  },
+  {
+    "teamId": 50,
+    "teamName": "Arkansas",
+    "seed": 8
+  },
+  {
+    "teamId": 51,
+    "teamName": "Seton Hall",
+    "seed": 9
+  },
+  {
+    "teamId": 52,
+    "teamName": "Minnesota",
+    "seed": 5
+  },
+  {
+    "teamId": 53,
+    "teamName": "Middle Tennessee",
+    "seed": 12
+  },
+  {
+    "teamId": 54,
+    "teamName": "Butler",
+    "seed": 4
+  },
+  {
+    "teamId": 55,
+    "teamName": "Winthrop",
+    "seed": 13
+  },
+  {
+    "teamId": 56,
+    "teamName": "Cincinnati",
+    "seed": 6
+  },
+  {
+    "teamId": 57,
+    "teamName": "Kansas State",
+    "seed": 11
+  },
+  {
+    "teamId": 58,
+    "teamName": "UCLA",
+    "seed": 3
+  },
+  {
+    "teamId": 59,
+    "teamName": "Kent State",
+    "seed": 14
+  },
+  {
+    "teamId": 60,
+    "teamName": "Dayton",
+    "seed": 7
+  },
+  {
+    "teamId": 61,
+    "teamName": "Wichita State",
+    "seed": 10
+  },
+  {
+    "teamId": 62,
+    "teamName": "Kentucky",
+    "seed": 2
+  },
+  {
+    "teamId": 63,
+    "teamName": "Northern Kentucky",
+    "seed": 15
+  }
+]

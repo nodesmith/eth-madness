@@ -1,0 +1,8 @@
+{
+  "solidity.linter": "solium",
+  "solidity.compileUsingRemoteVersio": "0.5.0",
+  "solidity.soliumRules": {
+      "quotes": ["error", "double"],
+      "indentation": ["error", 4]
+  },
+}

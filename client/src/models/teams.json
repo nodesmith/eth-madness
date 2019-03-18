@@ -1,0 +1,322 @@
+[
+  {
+    "teamId": 0,
+    "teamName": "Duke",
+    "seed": 1
+  },
+  {
+    "teamId": 1,
+    "teamName": "NC Cent / N Dakota St",
+    "seed": 16
+  },
+  {
+    "teamId": 2,
+    "teamName": "VCU",
+    "seed": 8
+  },
+  {
+    "teamId": 3,
+    "teamName": "UCF",
+    "seed": 9
+  },
+  {
+    "teamId": 4,
+    "teamName": "Mississippi St",
+    "seed": 5
+  },
+  {
+    "teamId": 5,
+    "teamName": "Liberty",
+    "seed": 12
+  },
+  {
+    "teamId": 6,
+    "teamName": "Virginia Tech",
+    "seed": 4
+  },
+  {
+    "teamId": 7,
+    "teamName": "Saint Louis",
+    "seed": 13
+  },
+  {
+    "teamId": 8,
+    "teamName": "Maryland",
+    "seed": 6
+  },
+  {
+    "teamId": 9,
+    "teamName": "Belmont / Temple",
+    "seed": 11
+  },
+  {
+    "teamId": 10,
+    "teamName": "LSU",
+    "seed": 3
+  },
+  {
+    "teamId": 11,
+    "teamName": "Yale",
+    "seed": 14
+  },
+  {
+    "teamId": 12,
+    "teamName": "Louisville",
+    "seed": 7
+  },
+  {
+    "teamId": 13,
+    "teamName": "Minnesota",
+    "seed": 10
+  },
+  {
+    "teamId": 14,
+    "teamName": "Michigan State",
+    "seed": 2
+  },
+  {
+    "teamId": 15,
+    "teamName": "Bradley",
+    "seed": 15
+  },
+  {
+    "teamId": 16,
+    "teamName": "Gonzaga",
+    "seed": 1
+  },
+  {
+    "teamId": 17,
+    "teamName": "F Dickinson / PVAMU",
+    "seed": 16
+  },
+  {
+    "teamId": 18,
+    "teamName": "Syracuse",
+    "seed": 8
+  },
+  {
+    "teamId": 19,
+    "teamName": "Baylor",
+    "seed": 9
+  },
+  {
+    "teamId": 20,
+    "teamName": "Marquette",
+    "seed": 5
+  },
+  {
+    "teamId": 21,
+    "teamName": "Murray St",
+    "seed": 12
+  },
+  {
+    "teamId": 22,
+    "teamName": "Florida St",
+    "seed": 4
+  },
+  {
+    "teamId": 23,
+    "teamName": "Vermont",
+    "seed": 13
+  },
+  {
+    "teamId": 24,
+    "teamName": "Buffalo",
+    "seed": 6
+  },
+  {
+    "teamId": 25,
+    "teamName": "Ariz St / St John's",
+    "seed": 11
+  },
+  {
+    "teamId": 26,
+    "teamName": "Texas Tech",
+    "seed": 3
+  },
+  {
+    "teamId": 27,
+    "teamName": "Northern Kentucky",
+    "seed": 14
+  },
+  {
+    "teamId": 28,
+    "teamName": "Nevada",
+    "seed": 7
+  },
+  {
+    "teamId": 29,
+    "teamName": "Florida",
+    "seed": 10
+  },
+  {
+    "teamId": 30,
+    "teamName": "Michigan",
+    "seed": 2
+  },
+  {
+    "teamId": 31,
+    "teamName": "Montana",
+    "seed": 15
+  },
+  {
+    "teamId": 32,
+    "teamName": "Virginia",
+    "seed": 1
+  },
+  {
+    "teamId": 33,
+    "teamName": "Gardner-Webb",
+    "seed": 16
+  },
+  {
+    "teamId": 34,
+    "teamName": "Ole Miss",
+    "seed": 8
+  },
+  {
+    "teamId": 35,
+    "teamName": "Oklahoma",
+    "seed": 9
+  },
+  {
+    "teamId": 36,
+    "teamName": "Wisconsin",
+    "seed": 5
+  },
+  {
+    "teamId": 37,
+    "teamName": "Oregon",
+    "seed": 12
+  },
+  {
+    "teamId": 38,
+    "teamName": "Kansas St",
+    "seed": 4
+  },
+  {
+    "teamId": 39,
+    "teamName": "UC Irvine",
+    "seed": 13
+  },
+  {
+    "teamId": 40,
+    "teamName": "Villanova",
+    "seed": 6
+  },
+  {
+    "teamId": 41,
+    "teamName": "Saint Mary's",
+    "seed": 11
+  },
+  {
+    "teamId": 42,
+    "teamName": "Purdue",
+    "seed": 3
+  },
+  {
+    "teamId": 43,
+    "teamName": "Old Dominion",
+    "seed": 14
+  },
+  {
+    "teamId": 44,
+    "teamName": "Cincinnati",
+    "seed": 7
+  },
+  {
+    "teamId": 45,
+    "teamName": "Iowa",
+    "seed": 10
+  },
+  {
+    "teamId": 46,
+    "teamName": "Tennessee",
+    "seed": 2
+  },
+  {
+    "teamId": 47,
+    "teamName": "Colgate",
+    "seed": 15
+  },
+  {
+    "teamId": 48,
+    "teamName": "North Carolina",
+    "seed": 1
+  },
+  {
+    "teamId": 49,
+    "teamName": "Iona",
+    "seed": 16
+  },
+  {
+    "teamId": 50,
+    "teamName": "Utah State",
+    "seed": 8
+  },
+  {
+    "teamId": 51,
+    "teamName": "Washington",
+    "seed": 9
+  },
+  {
+    "teamId": 52,
+    "teamName": "Auburn",
+    "seed": 5
+  },
+  {
+    "teamId": 53,
+    "teamName": "New Mexico St",
+    "seed": 12
+  },
+  {
+    "teamId": 54,
+    "teamName": "Kansas",
+    "seed": 4
+  },
+  {
+    "teamId": 55,
+    "teamName": "Northeastern",
+    "seed": 13
+  },
+  {
+    "teamId": 56,
+    "teamName": "Iowa St",
+    "seed": 6
+  },
+  {
+    "teamId": 57,
+    "teamName": "Ohio St",
+    "seed": 11
+  },
+  {
+    "teamId": 58,
+    "teamName": "Houston",
+    "seed": 3
+  },
+  {
+    "teamId": 59,
+    "teamName": "Georgia St",
+    "seed": 14
+  },
+  {
+    "teamId": 60,
+    "teamName": "Wofford",
+    "seed": 7
+  },
+  {
+    "teamId": 61,
+    "teamName": "Seton Hall",
+    "seed": 10
+  },
+  {
+    "teamId": 62,
+    "teamName": "Kentucky",
+    "seed": 2
+  },
+  {
+    "teamId": 63,
+    "teamName": "Abilene Christian",
+    "seed": 15
+  }
+]
