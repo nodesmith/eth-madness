@@ -19,7 +19,14 @@ export const getWeb3WithAccounts = () =>
       // Use Mist/MetaMask's provider.
       const web3 = window.web3;
       console.log("Injected web3 detected.");
-      resolve(web3);
+      const version = web3.version;
+      if (typeof version !== 'string' || !version.startsWith('1')) {
+        console.error('Old version of web3 being injected, trying to wrap it in web3 1.0');
+        console.error(version);
+        resolve(new Web3(window.web3.provider));
+      } else {
+        resolve(web3);
+      }
     }
     // Fallback to localhost; use dev console port by default...
     else {

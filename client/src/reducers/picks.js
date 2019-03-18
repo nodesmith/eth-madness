@@ -25,11 +25,41 @@ const buildInitialState = (isEditing, bracketName) => {
   return initialState;
 }
 
-const initialState = buildInitialState(true, '');
+const stateKey = 'PICKS_0.42';
+
+const savePickState = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    window.localStorage.setItem(stateKey, serializedState);
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+const loadPickState = () => {
+  try {
+    const serializedState = window.localStorage.getItem(stateKey);
+    return JSON.parse(serializedState);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+const clearPickState = () => {
+  try {
+    window.localStorage.removeItem(stateKey);
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+const initialState = loadPickState() || buildInitialState(true, '');
 
 const updateEncodedPicks = (state) => {
   state.encodedPicks = computeEncodedPicks(state.picksByGameId);
+  savePickState(state);
 }
+
 
 const picks = (state = initialState, action) => {
   switch (action.type) {
@@ -100,10 +130,12 @@ const picks = (state = initialState, action) => {
       return newState;
     }
     case ActionTypes.CLEAR_PICKS:
+      clearPickState();
       return buildInitialState(state.isEditing, '');
 
     case ActionTypes.HIDE_SUBMIT_PICKS_DIALOG:
       if (action.clearBracket) {
+        clearPickState();
         return buildInitialState(state.isEditing, '');
       } else {
         return state;

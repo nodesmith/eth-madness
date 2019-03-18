@@ -30,7 +30,8 @@ const styles = theme => ({
     right: 0,
     bottom: 0,
     position: 'absolute',
-    overflowY: 'scroll'
+    overflowY: 'scroll',
+    WebkitOverflowScrolling: 'touch',
   },
 });
 
@@ -53,6 +54,12 @@ class BracketMobile extends Component {
     const {classes, topTeamScore, bottomTeamScore, message, encodedPicks, submitPicks, submitEnabled, makePick, numRounds, isEditable, games, changeBracketProperty } = this.props;
     const gamesInRound = games.filter(g => g.round === roundNumber);
 
+    const prevButtonName = roundNumber === 1 ? null : roundDescriptions[roundNumber - 1];
+    const prevButtonAction = roundNumber === 1 ? null : this.handleBack;
+
+    const nextButtonName = roundNumber === 6 ? null : roundDescriptions[roundNumber + 1];
+    const nextButtonAction = roundNumber === 6 ? null : this.handleNext;
+
     return (
       <TournamentRoundMobile
         isFinals={roundNumber === numRounds}
@@ -67,7 +74,12 @@ class BracketMobile extends Component {
         encodedPicks={encodedPicks}
         topTeamScore={topTeamScore}
         bottomTeamScore={bottomTeamScore}
-        message={message}/>
+        message={message}
+        prevButtonName={prevButtonName}
+        prevButtonAction={prevButtonAction}
+        nextButtonName={nextButtonName}
+        nextButtonAction={nextButtonAction}
+        />
       );
   }
 
@@ -121,8 +133,8 @@ class BracketMobile extends Component {
               activeStep={currentRound - 1}
               nextButton={
                 <Button size="small" onClick={this.handleNext} disabled={currentRound === numRounds}>
-                  <KeyboardArrowRight />
                   Next
+                  <KeyboardArrowRight />
                 </Button>
               }
               backButton={
@@ -147,7 +159,6 @@ class BracketMobile extends Component {
               { roundViews }
             </SwipeableViews>
               </div>
-            
         </Grid>
           
     );

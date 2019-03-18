@@ -11,7 +11,6 @@ import { getWeb3WithAccounts } from '../utils/getWeb3';
 const getWeb3ForNetworkId = async (networkId, accountsNeeded) => {
   if (accountsNeeded) {
     const provider = await getWeb3WithAccounts();
-    debugger;
     try {
       const networkIdOfProvider = await provider.eth.net.getId();
 
@@ -21,7 +20,9 @@ const getWeb3ForNetworkId = async (networkId, accountsNeeded) => {
       }
   
       return provider;
-    } catch {
+    } catch(e) {
+      console.error('Error trying to get web3 with accounts');
+      console.error(e);
       throw new Error('no_web3');
     }
 

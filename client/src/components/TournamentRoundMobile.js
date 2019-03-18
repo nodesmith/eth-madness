@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 import Game, { HEIGHT, MARGIN } from './Game';
 
@@ -32,6 +34,11 @@ const styles = theme => {
       // left: theme.spacing.unit * 2,
       // bottom: theme.spacing.unit * 2,
       // width: `calc(100vw - ${theme.spacing.unit * 4}px)`
+    },
+    navButtons: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'space-between'
     }
   };
 
@@ -132,13 +139,19 @@ class TournamentRoundMobile extends Component {
   }
 
   render() {
-    const {games, classes, isFinals} = this.props;
+    const {games, classes, isFinals, nextButtonName, nextButtonAction, prevButtonName, prevButtonAction, } = this.props;
     if (isFinals) {
       return this.getFinalsComponent();
     } else {
+      const prevButton = prevButtonName ? ([<KeyboardArrowLeft />,prevButtonName]) : undefined;
+      const nextButton = nextButtonName ? ([nextButtonName,<KeyboardArrowRight />]) : undefined;
       return (
         <div className={classes.root}>
           {games.map(g => this.createGame(g))}
+          <div className={classes.navButtons}>
+            <Button onClick={prevButtonAction}>{prevButton}</Button>
+            <Button onClick={nextButtonAction}>{nextButton}</Button>
+          </div>
         </div>
       );
     }
@@ -159,6 +172,11 @@ TournamentRoundMobile.propTypes = {
   bottomTeamScore: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   changeBracketProperty: PropTypes.func.isRequired,
+
+  nextButtonName: PropTypes.string.isRequired,
+  nextButtonAction: PropTypes.func.isRequired,
+  prevButtonName: PropTypes.string.isRequired,
+  prevButtonAction: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(TournamentRoundMobile);
