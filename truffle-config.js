@@ -24,7 +24,8 @@ module.exports = {
     },
     mainnet: {
       network_id: 1,
-      provider: () => mainnetProvider
+      provider: () => mainnetProvider,
+      gasPrice: 2900000000
     }
   },
   plugins: [ "truffle-security" ]

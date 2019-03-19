@@ -2,20 +2,20 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: eth-madness
-  name: eth-madness
+    app: eth-madness-womens
+  name: eth-madness-womens
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: eth-madness
+      app: eth-madness-womens
   template:
     metadata:
       labels:
-        app: eth-madness
+        app: eth-madness-womens
     spec:
       containers:
-      - image: nodesmith/eth-madness:latest
+      - image: nodesmith/eth-madness:womens-latest
         imagePullPolicy: Always
         name: app
         ports:
@@ -38,8 +38,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: eth-madness
-  name: eth-madness
+    app: eth-madness-womens
+  name: eth-madness-womens
 spec:
   ports:
   - name: http
@@ -47,7 +47,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: eth-madness
+    app: eth-madness-womens
   type: ClusterIP
 
 ---
@@ -60,16 +60,16 @@ metadata:
     ingress.kubernetes.io/ssl-redirect: "true"
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
-  name: eth-madness
+  name: eth-madness-womens
 spec:
   rules:
-  - host: ethmadness.com
+  - host: ncaaw.ethmadness.com
     http:
       paths:
       - backend:
-          serviceName: eth-madness
+          serviceName: eth-madness-womens
           servicePort: 80
   tls:
   - hosts:
-    - ethmadness.com
-    secretName: eth-madness-cert
+    - ncaaw.ethmadness.com
+    secretName: eth-cert

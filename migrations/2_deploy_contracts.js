@@ -3,7 +3,8 @@ var SimpleToken = artifacts.require("./SimpleToken.sol");
 
 // function getDeployerFor
 
-const realTimestamps = [1553187600, 1554793199, 1554879599, 1555484399];
+// const realTimestamps = [1553187600, 1554793199, 1554879599, 1555484399];
+const realTimestamps =    [1553270400, 1554706799, 1554793199, 1555397999];
 const mockTimestamps = [0,1,2,3];
 
 module.exports = function(deployer) {
