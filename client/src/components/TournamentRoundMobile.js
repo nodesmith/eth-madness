@@ -51,11 +51,12 @@ const styles = theme => {
 class TournamentRoundMobile extends Component {
   
   createGame = (game) => {
-    const { makePick, isEditable, classes } = this.props;
+    const { makePick, isEditable, classes, eliminatedTeamIds } = this.props;
 
     const gameProps = { key: game.gameId, gameId: game.gameId, topSlotId: game.topSlotId,
       bottomSlotId: game.bottomSlotId, currentPickSlotId: game.currentPickSlotId, 
-      topTeam: game.topTeam, bottomTeam: game.bottomTeam, classes:{ root: classes.game } };
+      topTeam: game.topTeam, bottomTeam: game.bottomTeam, eliminatedTeamIds,
+      classes:{ root: classes.game }, gameResult: game.gameResult };
 
     return (<Game {...gameProps} makePick={makePick} isEditable={isEditable} />);
   }
@@ -177,6 +178,8 @@ TournamentRoundMobile.propTypes = {
   nextButtonAction: PropTypes.func.isRequired,
   prevButtonName: PropTypes.string.isRequired,
   prevButtonAction: PropTypes.func.isRequired,
+
+  eliminatedTeamIds: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(TournamentRoundMobile);

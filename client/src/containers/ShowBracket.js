@@ -25,8 +25,11 @@ const mapStateToProps = (state) => {
       numRounds: state.games.numRounds,
       topTeamScore: entry.scoreA || '-99',
       bottomTeamScore: entry.scoreB || '42',
+      bracketScore: entry.score,
+      bracketId: entry.entryIndex,
       bracketName: entry.bracketName || '(Unnamed Bracket)',
       submitter: entry.entrant,
+      eliminatedTeamIds: state.leaderboard.eliminatedTeamIds,
       transactionHash: entry.transactionHash,
       games: state.games.games.map(game => ({
         gameId: game.gameId,

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Paper } from '@material-ui/core';
+import { getRoundForGameId } from '../utils/converters';
 
 export const HEIGHT = 41;
 export const MARGIN = 12;
@@ -52,24 +53,52 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       lineHeight: '40px',
       fontSize: 16,
-      width: 40
+      minWidth: 35
     },
     lineHeight: '20px',
     fontFamily: theme.typography.fontFamily,
     fontSize: 10,
     textAlign: 'right',
-    width: 25,
+    minWidth: 25,
+  },
+  pickValue: {
+    textAlign: 'right',
+    paddingRight: theme.spacing.unit
   },
   pickedTeam: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText
+  },
+  wrongPick: {
+    backgroundColor: 'red',
+    textDecoration: 'line-through',
+    color: theme.palette.primary.contrastText
+  },
+  rightPick: {
+    backgroundColor: 'green',
+    color: theme.palette.primary.contrastText
+  },
+  impossiblePick: {
+    textDecoration: 'line-through',
+    fontWeight: 'lighter',
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.error.light,
+  },
+  previouslyEliminatedNotPicked: {
+    textDecoration: 'line-through',
+    fontWeight: 'lighter',
+  },
+  winningTeam: {
+    fontWeight: 'bold'
+  },
+  losingTeam: {
+    fontWeight: 'lighter'
   },
   topTeam: {
     borderRadius: '2px 2px 0px 0px'
   }, bottomTeam: {
     borderRadius: '0px 0px 2px 2px'
   }
-
 });
 
 /**
@@ -82,24 +111,48 @@ class Game extends Component {
     makePick(gameId, teamId, slotId);
   }
 
-  createTeamName = (seed, teamName) => {
+  createTeamName = (seed, teamName, pickValue) => {
     if (!seed || !teamName) {
       return undefined;
     }
 
+    const { classes } = this.props;
+
     return [
       <div key="seed" className={this.props.classes.teamSeed}>{seed}.</div>,
-      <span key="name" className={this.props.classes.teamName}>{teamName}</span>
+      <span key="name" className={this.props.classes.teamName}>{teamName}</span>,
+      <span key="name" className={[classes.teamName, classes.pickValue].join(' ')}>{pickValue}</span>
     ]
   }
 
   createTeamLine = (team, slotId, currentPickSlotId) => {
-    const { classes, isEditable } = this.props;
+    const { classes, isEditable, eliminatedTeamIds, gameResult, gameId } = this.props;
+
     const rootClasses = [this.props.classes.team];
-    let wasPicked = false;
-    if (typeof team.teamId !== 'undefined' && slotId === currentPickSlotId) {
-      rootClasses.push(this.props.classes.pickedTeam);
-      wasPicked = true;
+    const round = getRoundForGameId(gameId);
+    const hasTeamToWrite = typeof team.teamId !== 'undefined';
+    const wasPicked = (hasTeamToWrite && slotId === currentPickSlotId);
+    const wasEliminatedThisRound = hasTeamToWrite && eliminatedTeamIds[team.teamId] === round;
+    const wasEliminatedInAnEarlierRound = hasTeamToWrite && eliminatedTeamIds[team.teamId] > 0; // They exist in the eliminated teams
+    let pickValue = '';
+
+    if (hasTeamToWrite) {
+      if (wasPicked && !wasEliminatedInAnEarlierRound && !wasEliminatedThisRound && !gameResult) {
+        rootClasses.push(this.props.classes.pickedTeam);
+      } else if (wasPicked && wasEliminatedThisRound) {
+        rootClasses.push(this.props.classes.wrongPick);
+      } else if (wasPicked && wasEliminatedInAnEarlierRound) {
+        rootClasses.push(this.props.classes.impossiblePick);
+      } else if (wasPicked && gameResult && gameResult.winningTeamId === team.teamId) {
+        rootClasses.push(this.props.classes.rightPick);
+        pickValue = `+${2 ** (round - 1)}`
+      } else if (!wasPicked && wasEliminatedInAnEarlierRound) {
+        rootClasses.push(this.props.classes.previouslyEliminatedNotPicked);
+      }
+
+      if (gameResult && gameResult.winningTeamId === team.teamId) {
+        rootClasses.push(this.props.classes.winningTeam);
+      }
     }
 
     rootClasses.push(slotId % 2 === 0 ? classes.topTeam : classes.bottomTeam);
@@ -114,7 +167,7 @@ class Game extends Component {
 
     return (
       <div key={slotId} className={rootClasses.join(' ')} onClick={onTeamClick}>
-        {this.createTeamName(team.seed, team.teamName)}
+        {this.createTeamName(team.seed, team.teamName, pickValue)}
       </div>
     )
   }
@@ -144,7 +197,8 @@ Game.propTypes = {
   bottomSlotId: PropTypes.number.isRequired,
   currentPickSlotId: PropTypes.number,
   makePick: PropTypes.func.isRequired,
-  gameResult: PropTypes.object
+  gameResult: PropTypes.object,
+  eliminatedTeamIds: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Game);

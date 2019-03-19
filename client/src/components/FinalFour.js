@@ -41,6 +41,9 @@ const styles = theme => ({
     flexDirection: 'column',
     margin: theme.spacing.unit * 1
   },
+  tweetContainer: {
+
+  },
   staticFinalsGame: {
     margin: theme.spacing.unit * 1
   },
@@ -60,8 +63,8 @@ const styles = theme => ({
  * four games, and also the large championship component.
  */
 class FinalFour extends Component {
-  createGame = (game, makePick) => {
-    const { isEditable } = this.props;
+  createGame = (game, makePick, roundNumber) => {
+    const { isEditable, eliminatedTeamIds } = this.props;
 
     return (<Game 
       key={game.gameId}
@@ -73,7 +76,9 @@ class FinalFour extends Component {
       bottomTeam={game.bottomTeam}
       makePick={makePick}
       isEditable={isEditable}
-      gameResult={game.gameResult}/>);
+      gameResult={game.gameResult}
+      eliminatedTeamIds={eliminatedTeamIds[roundNumber] || {}}
+      />);
   }
 
   submitPicks = () => {
@@ -122,7 +127,11 @@ class FinalFour extends Component {
   }
 
   getStaticFinalsComponent = () => {
-    const { games, classes, makePick, topTeamScore, bottomTeamScore} = this.props;
+    const { games, classes, makePick, topTeamScore, bottomTeamScore, bracketId} = this.props;
+    
+    const bracketLink = `${window.origin}/bracket/${bracketId}`;
+    const tweetContent = `Check out my March Madness bracket - stored in a smart contract via ethmadness.com built by @nodesmith %23ethmaness. ${bracketLink}`
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetContent}`;
     
     return (
       <Paper className={classes.finals} >
@@ -133,11 +142,17 @@ class FinalFour extends Component {
             <Typography align="center" variant="body1">{topTeamScore}</Typography>
             <Typography align="center" variant="caption">Winner Score</Typography>
           </div>
-          { this.createGame(games[2], makePick) }
+          { this.createGame(games[2], makePick, 6) }
           <div className={classes.staticScoreContainer} >
             <Typography align="center" variant="body1">{bottomTeamScore}</Typography>
             <Typography align="center" variant="caption">Loser Score</Typography>
           </div>
+        </div>
+
+        <div className={classes.staticScoreContainer} >
+          <Typography variant="body1">
+            <a href={tweetUrl} target="_blank" rel="noopener noreferrer" className="twitter-share-button">Share This Bracket</a>
+          </Typography>
         </div>
       </Paper>
     )
@@ -150,12 +165,12 @@ class FinalFour extends Component {
         <div className={classes.games}>
           <div className={classes.finalFour}>
             <Typography align="center" variant="caption">Final Four</Typography>
-            { this.createGame(games[0], makePick) }
+            { this.createGame(games[0], makePick, 5) }
           </div>
           { isEditable ? this.getEditableFinalsComponent() : this.getStaticFinalsComponent() }
           <div className={classes.finalFour}>
             <Typography align="center" variant="caption">Final Four</Typography>
-            { this.createGame(games[1], makePick) }
+            { this.createGame(games[1], makePick, 5) }
           </div>
         </div>
       </div>
@@ -173,7 +188,9 @@ FinalFour.propTypes = {
   bottomTeamScore: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   changeBracketProperty: PropTypes.func.isRequired,
-  isEditable: PropTypes.bool.isRequired
+  isEditable: PropTypes.bool.isRequired,
+  eliminatedTeamIds: PropTypes.object.isRequired,
+  bracketId: PropTypes.number
 };
 
 export default withStyles(styles)(FinalFour);

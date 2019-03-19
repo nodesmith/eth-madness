@@ -58,6 +58,7 @@ class CreateEntry extends Component {
             message={message}
             changeBracketProperty={changeBracketProperty}
             isEditable={true}
+            eliminatedTeamIds={{}}
             />
         </Hidden>
         <Hidden mdUp>
@@ -74,6 +75,7 @@ class CreateEntry extends Component {
           message={message}
           changeBracketProperty={changeBracketProperty}
           isEditable={true}
+          eliminatedTeamIds={{}}
           />
         </Hidden>
         <SubmitPicksContainer />

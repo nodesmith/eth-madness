@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actions/actionTypes';
 import resultsByGameId from '../models/results.json';
 import tournamentTeams from '../models/teams.json';
-import { convertHexToBitString, convertEncodedPicksToByteArray, computeEncodedResults, deserializeHexPicks, getRoundForGameId, gamesByIdFromPicksById } from '../utils/converters';
+import { convertHexToBitString, convertEncodedPicksToByteArray, computeEncodedResults, deserializeHexPicks, getRoundForGameId, gamesByIdFromPicksById, NUM_ROUNDS } from '../utils/converters';
 
 import { createPicks } from '../utils/pickHelpers';
 import { getContractInstance } from '../sagas';
@@ -19,6 +19,31 @@ const initialState = {
   resultsByGameId,
   searchValue: ''
 };
+
+const eliminatedTeamIds = {
+  1: {},
+  2: {},
+  3: {},
+  4: {},
+  5: {},
+  6: {},
+};
+
+for (let gameId in initialState.resultsByGameId) {
+  const gameResult = resultsByGameId[gameId];
+  const { topTeamId, bottomTeamId, winningTeamId } = gameResult;
+  const losingTeam = winningTeamId === topTeamId ? bottomTeamId : topTeamId;
+
+  const losingRound = getRoundForGameId(gameId);
+
+  // Copy this team as being eliminated the whole way through and which round they went out in
+  for (let round = losingRound; round <= NUM_ROUNDS; round++) {
+    eliminatedTeamIds[round][losingTeam] = losingRound;
+  }
+}
+
+initialState.eliminatedTeamIds = eliminatedTeamIds;
+
 
 const scoreEntry = (entry, resultsByGameId) => {
   const picksByGameId = deserializeHexPicks(entry, teamsById);

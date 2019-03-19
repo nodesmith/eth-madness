@@ -19,14 +19,25 @@ const styles = theme => ({
     marginTop: -30
   },
   titleBar: {
+    width: '100%',
     maxWidth: '100%',
     paddingTop: theme.spacing.unit,
-    height: 60
+    height: 60,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  subheader: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    maxWidth: 700
   },
   title: {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2
   }
 });
 
@@ -36,12 +47,15 @@ const styles = theme => ({
 class ViewEntry extends Component {
   render = () => {
     const { bracketName, submitter, transactionHash, games, classes, makePick, numRounds, submitEnabled,
-            submitPicks, encodedPicks, topTeamScore, bottomTeamScore, message, changeBracketProperty } = this.props;
+            submitPicks, encodedPicks, topTeamScore, bottomTeamScore, message, changeBracketProperty, eliminatedTeamIds, bracketScore, bracketId } = this.props;
     return (
       <div className={classes.root}>
         <div className={classes.titleBar}>
           <Typography className={classes.title} align="center" variant="h5">{bracketName}</Typography>
-          <Typography align="center" variant="caption"><a href={`https://etherscan.io/tx/${transactionHash}`} target="_blank">{submitter}</a></Typography>
+          <div className={classes.subheader} >
+            <Typography className={classes.title} align="center" variant="h6"><span>Score: {bracketScore}</span></Typography>
+            <Typography className={classes.title} align="center" variant="h6"><span><a href={`https://etherscan.io/tx/${transactionHash}`} target="_blank">View Tx</a></span></Typography>
+          </div>
         </div>
         <Hidden smDown>
         <Bracket
@@ -57,6 +71,8 @@ class ViewEntry extends Component {
           message={message}
           changeBracketProperty={changeBracketProperty}
           isEditable={false}
+          eliminatedTeamIds={eliminatedTeamIds}
+          bracketId={bracketId}
           />
         </Hidden>
         <Hidden mdUp>
@@ -73,6 +89,7 @@ class ViewEntry extends Component {
           message={message}
           changeBracketProperty={changeBracketProperty}
           isEditable={false}
+          eliminatedTeamIds={eliminatedTeamIds}
           />
         </Hidden>
       </div>
@@ -87,8 +104,11 @@ ViewEntry.propTypes = {
   topTeamScore: PropTypes.string.isRequired,
   bottomTeamScore: PropTypes.string.isRequired,
   bracketName: PropTypes.string.isRequired,
+  bracketScore: PropTypes.number.isRequired,
   submitter: PropTypes.string.isRequired,
-  transactionHash: PropTypes.string.isRequired
+  transactionHash: PropTypes.string.isRequired,
+  eliminatedTeamIds: PropTypes.object.isRequired,
+  bracketId: PropTypes.number.isRequired
 };
 
 export default withStyles(styles)(ViewEntry);

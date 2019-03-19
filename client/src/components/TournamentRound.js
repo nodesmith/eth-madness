@@ -23,10 +23,10 @@ const styles = theme => {
  */
 class TournamentRound extends Component {
   createGame = (game) => {
-    const { makePick, isEditable } = this.props;
+    const { makePick, isEditable, eliminatedTeamIds } = this.props;
     const gameProps = { key: game.gameId, gameId: game.gameId, topSlotId: game.topSlotId,
       bottomSlotId: game.bottomSlotId, currentPickSlotId: game.currentPickSlotId, 
-      topTeam: game.topTeam, bottomTeam: game.bottomTeam };
+      topTeam: game.topTeam, bottomTeam: game.bottomTeam, eliminatedTeamIds, gameResult: game.gameResult };
 
     return (<Game {...gameProps} makePick={makePick} isEditable={isEditable} />);
   }
@@ -45,7 +45,8 @@ TournamentRound.propTypes = {
   classes: PropTypes.object.isRequired,
   games: PropTypes.array.isRequired,
   makePick: PropTypes.func.isRequired,
-  isEditable: PropTypes.bool.isRequired
+  isEditable: PropTypes.bool.isRequired,
+  eliminatedTeamIds: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(TournamentRound);

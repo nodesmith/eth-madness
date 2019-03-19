@@ -51,7 +51,7 @@ class BracketMobile extends Component {
   state = { currentRound: 1, numRounds: 6 }
 
   createRound = (roundNumber) => {
-    const {classes, topTeamScore, bottomTeamScore, message, encodedPicks, submitPicks, submitEnabled, makePick, numRounds, isEditable, games, changeBracketProperty } = this.props;
+    const {classes, eliminatedTeamIds, topTeamScore, bottomTeamScore, message, encodedPicks, submitPicks, submitEnabled, makePick, numRounds, isEditable, games, changeBracketProperty } = this.props;
     const gamesInRound = games.filter(g => g.round === roundNumber);
 
     const prevButtonName = roundNumber === 1 ? null : roundDescriptions[roundNumber - 1];
@@ -59,7 +59,6 @@ class BracketMobile extends Component {
 
     const nextButtonName = roundNumber === 6 ? null : roundDescriptions[roundNumber + 1];
     const nextButtonAction = roundNumber === 6 ? null : this.handleNext;
-
     return (
       <TournamentRoundMobile
         isFinals={roundNumber === numRounds}
@@ -79,6 +78,7 @@ class BracketMobile extends Component {
         prevButtonAction={prevButtonAction}
         nextButtonName={nextButtonName}
         nextButtonAction={nextButtonAction}
+        eliminatedTeamIds={eliminatedTeamIds[roundNumber] || {}}
         />
       );
   }
@@ -177,7 +177,8 @@ BracketMobile.propTypes = {
   bottomTeamScore: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   changeBracketProperty: PropTypes.func.isRequired,
-  isEditable: PropTypes.bool.isRequired
+  isEditable: PropTypes.bool.isRequired,
+  eliminatedTeamIds: PropTypes.object
 };
 
 export default withStyles(styles)(BracketMobile);

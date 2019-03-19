@@ -64,7 +64,7 @@ const styles = theme => ({
  */
 class Bracket extends Component {
   createRegionalBracket = (regionName, regionGames, side, topOrBottom) => {
-    const { classes, makePick, numRounds, isEditable } = this.props;
+    const { classes, makePick, numRounds, isEditable, eliminatedTeamIds } = this.props;
 
     const rounds = [];
     for (let i = 1; i <= numRounds - 2; i++) {
@@ -82,7 +82,9 @@ class Bracket extends Component {
           key={round.roundNumber}
           games={round.games}
           roundNumber={round.roundNumber}
-          isEditable={isEditable} />);
+          eliminatedTeamIds={eliminatedTeamIds[round.roundNumber] || {}}
+          isEditable={isEditable}
+           />);
     });
 
     return (
@@ -93,7 +95,7 @@ class Bracket extends Component {
   }
 
   render = () => {
-    const { isEditable, games, classes, submitPicks, submitEnabled, makePick, encodedPicks, topTeamScore, bottomTeamScore, message, changeBracketProperty  } = this.props;
+    const { bracketId, eliminatedTeamIds, isEditable, games, classes, submitPicks, submitEnabled, makePick, encodedPicks, topTeamScore, bottomTeamScore, message, changeBracketProperty  } = this.props;
 
     const gamesForRegions = {
       final_four: games.filter(g => g.region === 'final_four'),
@@ -128,6 +130,8 @@ class Bracket extends Component {
             message={message}
             changeBracketProperty={changeBracketProperty}
             isEditable={isEditable}
+            eliminatedTeamIds={eliminatedTeamIds || {}}
+            bracketId={bracketId}
             />
         </div>
       </div>
@@ -147,7 +151,9 @@ Bracket.propTypes = {
   bottomTeamScore: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   changeBracketProperty: PropTypes.func.isRequired,
-  isEditable: PropTypes.bool.isRequired
+  isEditable: PropTypes.bool.isRequired,
+  eliminatedTeamIds: PropTypes.object,
+  bracketId: PropTypes.number
 };
 
 export default withStyles(styles)(Bracket);
