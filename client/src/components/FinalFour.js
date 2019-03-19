@@ -8,7 +8,8 @@ const styles = theme => ({
     width: 700,
     height: 160,
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    pointerEvents: 'none'
   },
   games: {
     width: '100%',

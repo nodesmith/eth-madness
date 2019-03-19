@@ -28,7 +28,9 @@ const styles = theme => ({
     position: 'fixed',
     top: 60,
     left: 0,
-    right: 0
+    right: 0,
+    backgroundColor: theme.palette.background.paper,
+    zIndex: 2
   }
 });
 

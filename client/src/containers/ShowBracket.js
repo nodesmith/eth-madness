@@ -6,7 +6,10 @@ const mapStateToProps = (state) => {
   const path = state.router.location.pathname;
   const bracketId = parseInt(path.substring(path.lastIndexOf('/') + 1));
   if (isNaN(bracketId)) {
-    throw new Error('Illegal Bracket id');
+    return {
+      isLoading: true,
+      realProps: {}
+    }
   }
 
   const entry = state.leaderboard.allEntries[bracketId];

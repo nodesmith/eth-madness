@@ -37,7 +37,8 @@ const styles = theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing.unit * 2,
+    maxWidth: '100%',
   }
 });
 
