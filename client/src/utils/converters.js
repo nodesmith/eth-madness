@@ -176,7 +176,7 @@ export const computeEncodedResults = (resultsByGameId) => {
   }
 
   // Game Ids should be sorted in reverse order
-  if (gameIds[0] != NUM_GAMES - 1 || gameIds[NUM_GAMES - 1]) {
+  if (gameIds[0] !== NUM_GAMES - 1 || gameIds[NUM_GAMES - 1]) {
     console.error('Unexpected array');
     return undefined;
   }

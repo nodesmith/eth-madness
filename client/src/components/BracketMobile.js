@@ -51,7 +51,7 @@ class BracketMobile extends Component {
   state = { currentRound: 1, numRounds: 6 }
 
   createRound = (roundNumber) => {
-    const {classes, eliminatedTeamIds, topTeamScore, bottomTeamScore, message, encodedPicks, submitPicks, submitEnabled, makePick, numRounds, isEditable, games, changeBracketProperty } = this.props;
+    const { eliminatedTeamIds, topTeamScore, bottomTeamScore, message, encodedPicks, submitPicks, submitEnabled, numRounds, isEditable, games, changeBracketProperty } = this.props;
     const gamesInRound = games.filter(g => g.round === roundNumber);
 
     const prevButtonName = roundNumber === 1 ? null : roundDescriptions[roundNumber - 1];
@@ -115,7 +115,7 @@ class BracketMobile extends Component {
   }
 
   render = () => {
-    const { isEditable, games, classes, submitPicks, submitEnabled, makePick, encodedPicks, topTeamScore, bottomTeamScore, message, changeBracketProperty  } = this.props;
+    const { classes } = this.props;
     const { currentRound, numRounds } = this.state;
 
     const roundViews = [];

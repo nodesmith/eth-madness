@@ -73,7 +73,7 @@ class SubmitPicksDialog extends Component {
             We recommend using MetaMask.
           </DialogContentText>
           <div className={classes.metaMaskContainer}>
-            <a target="_blank" href="https://metamask.io/"><img alt="install-metamask" src="./metamasklogo.png" style={{ width: 200}} /></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/"><img alt="install-metamask" src="./metamasklogo.png" style={{ width: 200}} /></a>
           </div>
           <Button style={{ marginTop: 16 }} onClick={this.handleClose} fullWidth variant="contained" >Close</Button>
         </div>
@@ -113,7 +113,7 @@ class SubmitPicksDialog extends Component {
                 Bracket submission succeeded!
               </DialogContentText>
               <DialogContentText align="center">
-                See transaction on <a target="_blank" href={`https://etherscan.io/tx/${submissionStatus.transactionHash}`}>etherescan</a>.
+                See transaction on <a target="_blank" rel="noopener noreferrer" href={`https://etherscan.io/tx/${submissionStatus.transactionHash}`}>etherescan</a>.
               </DialogContentText>
               <DialogContentText style={{ marginTop: 16, marginBottom: 16}} align="center">
                 Share your picks with your friends.&nbsp;
@@ -126,7 +126,7 @@ class SubmitPicksDialog extends Component {
             </NavLink>
           </div>);
       default: 
-        throw 'unexpected state in SubmitPickDialog';
+        throw new Error('unexpected state in SubmitPickDialog');
     }
   }
 

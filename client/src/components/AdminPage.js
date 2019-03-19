@@ -30,12 +30,12 @@ function AdminPage(props) {
     return (<Typography variant="h1" align="center">Loading...</Typography>);
   }
 
-  const oracles = contractMetadata.oracles.map(o => (<li key={o}><Typography variant="body1">{o.oracleAddress} - {JSON.stringify(o.oracleVote)}</Typography></li>));
+  const oracles = contractMetadata.oracles.map(o => (<li key={o}><Typography >{o.oracleAddress} - {JSON.stringify(o.oracleVote)}</Typography></li>));
   
   const transitionTimes = Object.keys(ContestState).map(s => {
     const val = ContestState[s];
     if (contractMetadata.transitionTimes[val]) {
-      return (<li key={s}><Typography variant="body1"><strong>{s}: </strong>{new Date(contractMetadata.transitionTimes[val]).toString()}</Typography></li>);
+      return (<li key={s}><Typography ><strong>{s}: </strong>{new Date(contractMetadata.transitionTimes[val]).toString()}</Typography></li>);
     }
 
     return null;
@@ -45,43 +45,43 @@ function AdminPage(props) {
     <div className={classes.root}>
       <div>
         <ul>
-          <Typography variant="body1"><strong>Network Id: </strong>{contractMetadata.networkId}</Typography>
+          <Typography ><strong>Network Id: </strong>{contractMetadata.networkId}</Typography>
         </ul>
         <ul>
-          <Typography variant="body1"><strong>Contract Address: </strong>{contractMetadata.contractAddress}</Typography>
+          <Typography ><strong>Contract Address: </strong>{contractMetadata.contractAddress}</Typography>
         </ul>
         <ul>
-          <Typography variant="body1"><strong>Current State: </strong>{contractMetadata.currentState}</Typography>
+          <Typography ><strong>Current State: </strong>{contractMetadata.currentState}</Typography>
         </ul>
         <ul>
-          <Typography variant="body1"><strong>Entry Count: </strong>{contractMetadata.entryCount}</Typography>
+          <Typography ><strong>Entry Count: </strong>{contractMetadata.entryCount}</Typography>
         </ul>
         <ul>
-          <Typography variant="body1"><strong>Prize Amount: </strong>{contractMetadata.prizeAmount}</Typography>
+          <Typography ><strong>Prize Amount: </strong>{contractMetadata.prizeAmount}</Typography>
         </ul>
         <ul>
-          <Typography variant="body1"><strong>Price Token Address: </strong>{contractMetadata.prizeERC20TokenAddress}</Typography>
+          <Typography ><strong>Price Token Address: </strong>{contractMetadata.prizeERC20TokenAddress}</Typography>
         </ul>
         <ul>
-          <Typography variant="body1"><strong>Oracles: </strong></Typography>
+          <Typography ><strong>Oracles: </strong></Typography>
           <ul>
             {oracles}
           </ul>
         </ul>
         <ul>
-          <Typography variant="body1"><strong>Transition Times: </strong></Typography>
+          <Typography ><strong>Transition Times: </strong></Typography>
           <ul>
             {transitionTimes}
           </ul>
         </ul>
         <ul>
-          <Typography variant="body1"><strong>First: </strong>{JSON.stringify(contractMetadata.first)}</Typography>
+          <Typography ><strong>First: </strong>{JSON.stringify(contractMetadata.first)}</Typography>
         </ul>
         <ul>
-          <Typography variant="body1"><strong>Second: </strong>{JSON.stringify(contractMetadata.second)}</Typography>
+          <Typography ><strong>Second: </strong>{JSON.stringify(contractMetadata.second)}</Typography>
         </ul>
         <ul>
-          <Typography variant="body1"><strong>Third: </strong>{JSON.stringify(contractMetadata.third)}</Typography>
+          <Typography ><strong>Third: </strong>{JSON.stringify(contractMetadata.third)}</Typography>
         </ul>
       </div>
       <div>

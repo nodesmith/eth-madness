@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
-import Game, { HEIGHT, MARGIN } from './Game';
+import Game from './Game';
 
 const styles = theme => {
   const result = {
@@ -87,7 +87,7 @@ class TournamentRoundMobile extends Component {
                   :
                   (
                     [<Typography key="score" align="center" variant="h4">{topTeamScore}</Typography>,
-                    <Typography key="label" align="center" variant="body1">Winner Score</Typography>]
+                    <Typography key="label" align="center" >Winner Score</Typography>]
                   )
                 }
           </Grid>
@@ -109,7 +109,7 @@ class TournamentRoundMobile extends Component {
                   :
                   (
                     [<Typography key="score"  align="center" variant="h4">{bottomTeamScore}</Typography>,
-                    <Typography key="label" align="center" variant="body1">Loser Score</Typography>]
+                    <Typography key="label" align="center">Loser Score</Typography>]
                   )
                 }
           </Grid>

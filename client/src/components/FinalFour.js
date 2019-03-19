@@ -139,18 +139,18 @@ class FinalFour extends Component {
 
         <div className={classes.scoreContainer} >
           <div className={classes.staticScoreContainer} >
-            <Typography align="center" variant="body1">{topTeamScore}</Typography>
+            <Typography align="center" >{topTeamScore}</Typography>
             <Typography align="center" variant="caption">Winner Score</Typography>
           </div>
           { this.createGame(games[2], makePick, 6) }
           <div className={classes.staticScoreContainer} >
-            <Typography align="center" variant="body1">{bottomTeamScore}</Typography>
+            <Typography align="center" >{bottomTeamScore}</Typography>
             <Typography align="center" variant="caption">Loser Score</Typography>
           </div>
         </div>
 
         <div className={classes.staticScoreContainer} >
-          <Typography variant="body1">
+          <Typography >
             <a href={tweetUrl} target="_blank" rel="noopener noreferrer" className="twitter-share-button">Share This Bracket</a>
           </Typography>
         </div>

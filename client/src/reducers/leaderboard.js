@@ -1,10 +1,7 @@
 import * as ActionTypes from '../actions/actionTypes';
 import resultsByGameId from '../models/results.json';
 import tournamentTeams from '../models/teams.json';
-import { convertHexToBitString, convertEncodedPicksToByteArray, computeEncodedResults, deserializeHexPicks, getRoundForGameId, gamesByIdFromPicksById, NUM_ROUNDS } from '../utils/converters';
-
-import { createPicks } from '../utils/pickHelpers';
-import { getContractInstance } from '../sagas';
+import { deserializeHexPicks, getRoundForGameId, gamesByIdFromPicksById, NUM_ROUNDS } from '../utils/converters';
 
 const teamsById = tournamentTeams.reduce((prev, curr) => {
   prev[curr.teamId] = curr;

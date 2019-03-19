@@ -121,8 +121,8 @@ class Game extends Component {
     return [
       <div key="seed" className={this.props.classes.teamSeed}>{seed}.</div>,
       <span key="name" className={this.props.classes.teamName}>{teamName}</span>,
-      <span key="name" className={[classes.teamName, classes.pickValue].join(' ')}>{pickValue}</span>
-    ]
+      <span key="pickValue" className={[classes.teamName, classes.pickValue].join(' ')}>{pickValue}</span>
+    ];
   }
 
   createTeamLine = (team, slotId, currentPickSlotId) => {

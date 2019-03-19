@@ -46,7 +46,7 @@ const styles = theme => ({
  */
 class ViewEntry extends Component {
   render = () => {
-    const { bracketName, submitter, transactionHash, games, classes, makePick, numRounds, submitEnabled,
+    const { bracketName, transactionHash, games, classes, makePick, numRounds, submitEnabled,
             submitPicks, encodedPicks, topTeamScore, bottomTeamScore, message, changeBracketProperty, eliminatedTeamIds, bracketScore, bracketId } = this.props;
     return (
       <div className={classes.root}>
@@ -54,7 +54,11 @@ class ViewEntry extends Component {
           <Typography className={classes.title} align="center" variant="h5">{bracketName}</Typography>
           <div className={classes.subheader} >
             <Typography className={classes.title} align="center" variant="h6"><span>Score: {bracketScore}</span></Typography>
-            <Typography className={classes.title} align="center" variant="h6"><span><a href={`https://etherscan.io/tx/${transactionHash}`} target="_blank">View Tx</a></span></Typography>
+            <Typography className={classes.title} align="center" variant="h6"><span>
+              <a href={`https://etherscan.io/tx/${transactionHash}`} target="_blank" rel="noopener noreferrer">
+                View Tx
+              </a></span>
+            </Typography>
           </div>
         </div>
         <Hidden smDown>

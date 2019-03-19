@@ -1,6 +1,6 @@
 import * as ActionTypes from '../actions/actionTypes';
 import resultsByGameId from '../models/results.json';
-import { computeEncodedPicks, getNextSlotId, NUM_GAMES, NUM_TEAMS, NUM_ROUNDS } from '../utils/converters';
+import { computeEncodedPicks, getNextSlotId, NUM_GAMES, NUM_TEAMS } from '../utils/converters';
 import * as PickHelpers from '../utils/pickHelpers';
 import faker from 'faker';
 
@@ -214,7 +214,6 @@ const picks = (state = initialState, action) => {
       const newState = buildInitialState(state.isEditing, faker.random.words(3));
       const gameIds = Object.keys(newState.currentBracketByGameId).map(k => parseInt(k)).sort(((a, b) => a - b));
       for (let gameId of gameIds) {
-        const currentGame = newState.currentBracketByGameId[gameId];
         const gameResult = resultsByGameId[gameId];
         const teamId = gameResult.winningTeamId;
         const slotId = (gameId * 2) + ((gameResult.winningTeamId === gameResult.topTeamId) ? 0 : 1);
@@ -249,6 +248,8 @@ const picks = (state = initialState, action) => {
           return Object.assign({}, state, {
             bracketName: action.value
           });
+        default:
+          throw new Error('unknown bracket property ' + action.propertyName);
       }
     }
     // case ActionTypes.BOTTOM_TEAM_PICKS: {

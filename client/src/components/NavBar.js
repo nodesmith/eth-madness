@@ -25,6 +25,7 @@ const styles = {
   },
   header: {
     textDecoration: 'none',
+    width: 160
   },
   largerFont: {
     fontSize: '1.00rem'
@@ -53,7 +54,7 @@ function SimpleAppBar(props) {
       <AppBar position="fixed" className={`${classes.navbar} mui-fixed`}>
         <Toolbar>
           <NavLink to={{ pathname: `/leaders`, search: props.location.search}} className={classes.header}>
-            <Typography className={classes.largerFont} variant="overline">Leaderboard</Typography>
+            <Typography align="right" className={classes.largerFont} variant="overline">Leaderboard</Typography>
           </NavLink>
           <NavLink to={{ pathname: `/`, search: props.location.search}}>
             <Hidden smUp>

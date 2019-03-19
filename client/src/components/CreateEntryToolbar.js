@@ -36,7 +36,7 @@ const styles = theme => ({
  */
 class CreateEntryToolbar extends Component {
   render = () => {
-    const { classes, makeRandomPicks, clearPicks, perfectPicks, topSeedPicks } = this.props;
+    const { classes, makeRandomPicks, clearPicks, topSeedPicks } = this.props;
     return (
       <div className={classes.root}>
         <div className={classes.buttonContainer}>

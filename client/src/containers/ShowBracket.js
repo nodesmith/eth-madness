@@ -5,8 +5,8 @@ import LoadingContainer from '../components/LoadingContainer';
 const mapStateToProps = (state) => {
   const path = state.router.location.pathname;
   const bracketId = parseInt(path.substring(path.lastIndexOf('/') + 1));
-  if (bracketId === NaN) {
-    throw 'Illegal Bracket id' // TODO
+  if (isNaN(bracketId)) {
+    throw new Error('Illegal Bracket id');
   }
 
   const entry = state.leaderboard.allEntries[bracketId];

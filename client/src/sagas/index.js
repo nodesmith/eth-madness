@@ -15,7 +15,7 @@ const getWeb3ForNetworkId = async (networkId, accountsNeeded) => {
       const networkIdOfProvider = await provider.eth.net.getId();
 
       // Intentional != here, comparing string and number. 
-      if (networkId != networkIdOfProvider) {
+      if (networkId.toString() !== networkIdOfProvider.toString()) {
         throw new Error(`Web3 instance connected to the wrong network. Expected ${networkId}, Actual ${networkIdOfProvider}`);
       }
   
@@ -164,6 +164,8 @@ function* advanceContestState(action) {
           from: fromAddress
         });
         break;
+      default:
+        throw new Error('Unsupported next state');
     }
 
     const currentState = yield call(contractInstance.methods.currentState().call);
@@ -218,7 +220,7 @@ function* submitBracket(action) {
 const byteArrayToHex = (byteArray, add0x) => {
   const result = byteArray.map(b => {
     const byte = b.toString(16);
-    return byte.length == 2 ? byte : ("0" + byte);
+    return byte.length === 2 ? byte : ("0" + byte);
   }).join('');
 
   return add0x ? ('0x' + result) : result;
@@ -274,16 +276,6 @@ function* loadEntries() {
   } catch(e) {
     console.error(e);
   } 
-}
-
-function* fetchNetworkId() {
-  try {
-    const web3 = yield call(getWeb3WithAccounts);
-    const networkId = yield call(web3.eth.net.getId);
-    yield put({type: "NETWORK_ID", networkId: networkId});
-  } catch (e) {
-     yield put({type: "USER_FETCH_FAILED", message: e.message});
-  }
 }
 
 function* mySaga() {
