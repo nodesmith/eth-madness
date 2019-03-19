@@ -130,7 +130,7 @@ class FinalFour extends Component {
     const { games, classes, makePick, topTeamScore, bottomTeamScore, bracketId} = this.props;
     
     const bracketLink = `${window.origin}/bracket/${bracketId}`;
-    const tweetContent = `Check out my March Madness bracket - stored in a smart contract via ethmadness.com built by @nodesmith %23ethmaness. ${bracketLink}`
+    const tweetContent = `Check out my March Madness bracket - stored in a smart contract via ethmadness.com built by @nodesmith %23ethmadness. ${bracketLink}`
     const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetContent}`;
     
     return (

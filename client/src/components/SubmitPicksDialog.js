@@ -104,7 +104,7 @@ class SubmitPicksDialog extends Component {
           </div>);
       case 'succeeded':
         const bracketLink = `${window.origin}/bracket/${submissionStatus.bracketId}`;
-        const tweetContent = `Check out my March Madness bracket - stored in a smart contract via ethmadness.com built by @nodesmith %23ethmaness. ${bracketLink}`
+        const tweetContent = `Check out my March Madness bracket - stored in a smart contract via ethmadness.com built by @nodesmith %23ethmadness. ${bracketLink}`
         const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetContent}`;
         return (
           <div className={classes.content}>
