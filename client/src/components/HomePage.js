@@ -56,7 +56,7 @@ function HomePage(props) {
       <Grid container className={classes.root} justify="center" spacing={24}>
         <Grid item {...sizes}>
           <Typography className={classes.header}>
-            <span role="img" aria-label="basketball icon">🏀</span> Welcome to Eth Madness! <span role="img" aria-label="basketball icon">🏀</span>
+            <span role="img" aria-label="basketball icon">🏀</span> Welcome to Eth Madness! NCAAW Edition <span role="img" aria-label="basketball icon">🏀</span>
           </Typography>
         </Grid>
         <Grid item {...sizes}>
@@ -66,7 +66,7 @@ function HomePage(props) {
 
           <Typography className={classes.bodyText}>
             Eth Madness is the answer to the question 'How do I combine college basketball and decentralized technology, the two most important things in life?'
-            Eth Madness is a smart contract based NCAA bracket challenge.
+            Eth Madness is a smart contract based NCAAW bracket challenge.
           </Typography>
         </Grid>
         <Grid container item {...sizes} justify="center" style={{ marginTop: 16}}>
@@ -131,12 +131,12 @@ function HomePage(props) {
         </Grid>
         <Grid item {...sizes}>
           <Typography className={classes.title}>
-            NCAA Women's Bracket Challenge
+            NCAA Men's Bracket Challenge
           </Typography>
 
           <Typography className={classes.bodyText}>
-            We're running the same tournament for the Women's NCAA tournament over 
-            at <a href="https://ncaaw.ethmadness.com">https://ncaaw.ethmadness.com</a>!
+            We're running the same tournament for the Men's NCAA tournament over 
+            at <a href="https://ethmadness.com">https://ethmadness.com</a>!
           </Typography>
         </Grid>
         <MadeWithBasketball sizes={sizes} />
