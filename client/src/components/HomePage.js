@@ -129,6 +129,16 @@ function HomePage(props) {
             <li><Typography className={classes.bodyText}>A tiny amount of Ether to cover your bracket submission's gas cost.</Typography></li>
           </ol>
         </Grid>
+        <Grid item {...sizes}>
+          <Typography className={classes.title}>
+            NCAA Women's Bracket Challenge
+          </Typography>
+
+          <Typography className={classes.bodyText}>
+            We're running the same tournament for the Women's NCAA tournament over 
+            at <a href="https://ncaaw.ethmadness.com">https://ncaaw.ethmadness.com</a>!
+          </Typography>
+        </Grid>
         <MadeWithBasketball sizes={sizes} />
       </Grid>
     </div>
