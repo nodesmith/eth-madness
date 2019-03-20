@@ -3,6 +3,7 @@ import resultsByGameId from '../models/results.json';
 import { computeEncodedPicks, getNextSlotId, NUM_GAMES, NUM_TEAMS } from '../utils/converters';
 import * as PickHelpers from '../utils/pickHelpers';
 import faker from 'faker';
+import tournamentTeams from '../models/teams.json';
 
 const buildInitialState = (isEditing, bracketName) => {
   const initialState = {
@@ -189,8 +190,8 @@ const picks = (state = initialState, action) => {
       const newState = buildInitialState(state.isEditing, faker.random.words(3));
 
       const { picksByGameId, currentBracketByGameId } = PickHelpers.createPicks((gameId, currentGame) => {
-        const topTeamSeed = 1 + (currentGame.topTeamId % 16);
-        const bottomTeamSeed = 1 + (currentGame.bottomTeamId % 16);
+        const topTeamSeed = tournamentTeams[currentGame.topTeamId].seed;
+        const bottomTeamSeed = tournamentTeams[currentGame.bottomTeamId].seed;
         if (topTeamSeed < bottomTeamSeed) {
           return currentGame.topTeamId;
         } else if (bottomTeamSeed < topTeamSeed) {
