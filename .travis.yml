@@ -36,5 +36,3 @@ deploy:
 env:
   global:
     - AWS_DEFAULT_REGION=us-east-2
-    - secure: 
-    - secure: 
