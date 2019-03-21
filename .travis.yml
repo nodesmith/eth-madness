@@ -23,7 +23,8 @@ before_deploy:
 - curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
 - chmod +x ./aws-iam-authenticator
 - cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$HOME/bin:$PATH
-- kubectl get pods -l app=eth-madness --kubeconfig $TRAVIS_BUILD_DIR/kubeconfig
+- kubectl cluster-info --context=aws-us-east --kubeconfig=$TRAVIS_BUILD_DIR/kubeconfig 
+- kubectl get pods -l app=eth-madness --context=aws-us-east --kubeconfig=$TRAVIS_BUILD_DIR/kubeconfig 
 deploy:
   skip_cleanup: true
   provider: script
