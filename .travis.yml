@@ -5,6 +5,7 @@ services:
 - docker
 
 script:
+  - cd client
   - npm run build
   - npm run docker:build
 
