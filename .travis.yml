@@ -19,14 +19,14 @@ before_deploy:
 - sudo apt-get update
 - sudo apt-get install -y kubectl
 - echo "Successfully installed kubectl"
-- export KUBECONFIG=$PWD/kubeconfig
+- export KUBECONFIG=$TRAVIS_BUILD_DIR/kubeconfig
 - curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
 - chmod +x ./aws-iam-authenticator
 - cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$HOME/bin:$PATH
 deploy:
   skip_cleanup: true
   provider: script
-  script: bash ./deploy.sh
+  script: bash $TRAVIS_BUILD_DIR/deploy.sh
   on:
     repo: nodesmith/eth-madness
     branch: master
