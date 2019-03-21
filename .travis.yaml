@@ -1,0 +1,40 @@
+sudo: required
+language: nodejs
+
+services:
+- docker
+
+script:
+  - npm run build
+  - npm run docker:build
+
+  before_deploy:
+  # Install kubectl
+  - sudo apt-get update && sudo apt-get install -y apt-transport-https
+  - curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+  - sudo touch /etc/apt/sources.list.d/kubernetes.list
+  - echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+  - sudo apt-get update
+  - sudo apt-get install -y kubectl
+  - echo "Successfully installed kubectl"
+
+  # Install the aws-iam-authenticator
+  - export KUBECONFIG=$PWD/kubeconfig
+  - curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
+  - chmod +x ./aws-iam-authenticator
+  - cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$HOME/bin:$PATH
+  - kubectl get pods
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: bash ./kubernetes/deploy.sh
+  on:
+    repo: nodesmith/deployment
+    branch: master
+
+env:
+  global:
+    - AWS_DEFAULT_REGION=us-east-2
+    - secure: 
+    - secure: 
