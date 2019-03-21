@@ -104,7 +104,7 @@ function HomePage(props) {
           </li>
           <li><Typography className={classes.bodyText}>Submit your bracket via MetaMask or other Web3 provider - it's stored on chain.</Typography></li>
           <li><Typography className={classes.bodyText}>Check your progress during the tournament via the <NavLink to={{ pathname: '/leaders', search: props.location.search}}>Leaderboard</NavLink>.</Typography></li>
-          <li><Typography className={classes.bodyText}>After <strike>Gonzaga</strike> the national champion has been crowned, 5 oracles will submit the results.  If 75% of them submit the same results, the 3 winners will receive their DAI!</Typography></li>
+          <li><Typography className={classes.bodyText}>After <strike>Gonzaga</strike> the national champion has been crowned, 4 oracles will submit the results.  If 75% of them submit the same results, the 3 winners will receive their DAI!</Typography></li>
         </ol>
 
           <Typography className={classes.bodyText}>
