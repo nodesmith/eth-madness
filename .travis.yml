@@ -1,33 +1,29 @@
 sudo: required
 language: nodejs
-
+node_js:
+- '7'
 services:
 - docker
-
 script:
-  - cd client
-  - npm install -g create-react-app
-  - npm install
-  - npm run build
-  - npm run docker:build
-
+- cd client
+- npm install -g create-react-app
+- npm install
+- npm run build
+- npm run docker:build
 before_deploy:
-# Install kubectl
 - sudo apt-get update && sudo apt-get install -y apt-transport-https
-- curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+- curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+  -
 - sudo touch /etc/apt/sources.list.d/kubernetes.list
 - echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 - sudo apt-get update
 - sudo apt-get install -y kubectl
 - echo "Successfully installed kubectl"
-
-# Install the aws-iam-authenticator
 - export KUBECONFIG=$PWD/kubeconfig
 - curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
 - chmod +x ./aws-iam-authenticator
 - cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$HOME/bin:$PATH
 - kubectl get pods
-
 deploy:
   skip_cleanup: true
   provider: script
@@ -35,7 +31,10 @@ deploy:
   on:
     repo: nodesmith/eth-madness
     branch: master
-
 env:
   global:
-    - AWS_DEFAULT_REGION=us-east-2
+  - AWS_DEFAULT_REGION=us-east-2
+  - secure: zW9j7amGG0K+Ok4wywK37AHeyCJa04nnrbsghwbSunABjimaZ/r+l2jrkRwCgxFKF+GRVxRvY02Oa/YzB7aq/YgoQkfFSr2eKKIRU8aJsBwia8bsBiygmEzdIw8jqf/3izDADm9PxpWipLdvKaLP0I/KCWwAEf64QvEF+zrH+iqeCz4uIhDTMNUvbG9XTyHkIDXJ7woEfX+UzbLHMpiDb2GaI5wk+oJgbyZFivOFpsuL6TBygkmLXXyNB1biR4/9oJfZGegNVxQ5pQjeoSuTPXCj+x9FLAdjLGFGdz7oZwKNp2FLKGX+705HM5DNoug0+ZZZn2JI1NNhzSTwazAOfq3fRM/U/Ez+6Ok9T7EYBchGGR9j+WzW6NquRbVej8vJ9nCIWus5cS+SOk4U1MlGfToUUzMYYAtqBKs1cMfkIU4W3sK04r6E4FmYYHB1q5Xa9qGCTqq2sLPjAoZ3ww6PLQOmadByTMafZKORf2Zo8uZdSFcosH0ocOaUjYIJCQrzAiG+kRt3ncQtq5vbnqs2xZuIiMLKuHjealpdEgSweOVBiFRdl9OR/3RGo32sO0urJ+inp7Zt7uuUj/b32xSP0yJ9qEN0w1cRPwxz1TzwZ3Xli/Z16P2+3IdVmnd1wSzdPiRsqnpTKDbrZbCbn3c719Hu+io+7qcggSjk7zJuybY=
+  - secure: F1ZYnn4AyL5QurUSxHh4+/pHRqmEkTfKeIDJ8foXG+WgoqsUPaDVAaR5XOPphTGc259SFDDEbL34b3REZMk7YGoRvTQp0n87f/KU2pbb3sJ+3MxN52dvfHnIKqSOKRNntjp+1ffqvKHul9VZniuhY41kpeQhzbU6kTdyobhBkyEiL1EiTW73jQMS3uEODaAIxhfAlh+U7HcMq04Ne0msOpsf11TMQFeB45Aoq+e3berIz2FBfB9F1Q/CV9Niw4eBkB+cGU8zcOBnDz1SaTrmfWRpPXF2vMGt+L4F86n9gWAIlmCsxifohD4hwAYFwNV0IDOJKASSqdpZOI5oboMxpg7n3il5D+NIVbuGYVZOT9nyH/ePBZo2zRp7MUgpEnTyqvA5zPoC5LlU23QpkoWKiFemtLxsNfFkcziMVspgOaDK7ewqQO0/8k1/Jy+5Ai0xELSdqUmmK3GAFamAJKqewjOcs8JmyPkzH3ep+g8TSG5BXFcPx2Anl93fjRuvlZjnVRxRxyG5OUwUvmJPPa6+ARI6vAJIX+NYOAV2SymlMDDMMllw7WIceWQHn25/evgR9vNNRTQ3/ULoWoyONIEHDqUVzO4E4j1Mzp5ArDPEQ50Dybb3gyhi1aUoQlupizMO3rQ+PZDZ6s3VXdOPhRCN3g/ZJQMSptv59oxhCa+Ehy4=
+  - secure: EM2yt4sLsZM1uv3OzG0pl5+iMnA91AYYSKX4umnH9WVION+X1eIP7GbrRJDDqFV6IIww060Zn048GsJ7UQs1eZp62viqowynmRPLF0ICE/JvuRTLuqQ1A49ZhuLaFs9jW/mq0md0dPRuVQW4LLuJUX0RdcBjK6V6LD/E+cbswpqYYcPrtLZXpQCm/d1bk5vWXQYe9buo2NVvwFdEgSkHt2d7hHi93xY0Dxr+SZzoijt53PMX+e8ChVg9mabHDk2uU3IsxXQn0uED7b9cEs2jYCdkQHHQPmTDn2sZXyAXmRIf79QlefXetgexcn5LjFk5DVeC9aoQE1isTz0nDxGR93chTnrsHIxu05NG9EBg08brgfjmawHDvCjtw8vT9t+KYtLDWmyHH0d9W/+il8/O+X26HZq5uWgkN3IXZy1CtieYgg+nM+En1nZRPArgcHJdJHaueCgLWNqftGfqejQw7ssBiI11ad6VyIUKQzhJhNykybvCoBFKSh14KK6e1PZS2fz8PsVuz7JIXOkTwqw8sZsRk3Qp4s4T2ds7RdYf+0llr9rNDMJQ+0nASsPqJo06vhrIhyFHsN2fqEDRCNpiQX1SCZdH57mqBdABteXprsPeZcWxtC0jYgkIcm/ayKd6nag4ai8a2Hb3CVnLu7JzZyNy5ED5F5k6JYdoWlsWB0E=
+  - secure: x7OGKc2+CokNQw4bnDxUgm7G/Ls/jlamX708ZRUdyLsNK9t3fvLMSPb32YCVSQkNHF50rS0VnwkdDBdEnqhsKxrz+X2xjGXY0FBFz3XpZld/lAEtxXLY6vmW9KtzXgy2RxXIgXeujKID4kmBBXqoiyJfiWjHh3W7okkKtSUtYLkbphp22j0ekVQSLDGqBQKeh+p+ncTbtSsga8rmE09yIzDQaHrTZZ5l2kQ4BUlOG4vPBRMLMG7Uv2AQWzJNzF6j9UkmLSg4k7Ixrgj3gZbZhW1kMqx0xSfuWfu8P6TuapX8NEA3PBtrF1bmYb/SKSrQx/9LZ63+8enhYtH0SMEy0JjdQMyVa3qNRVyrAnjdbp1f7r4+L5doTUeHSm4RoSxRINt4x8nH+1y0SttSHmNNm84CSFP/Gq9eBRLJaZZcRQHlZrZxr7NMqJMC7wZvEnvZjMC8eVe4Wl1K2+JUT7WaauurrGjEMg7HB+9sJn+f6NiEcIqWWfGjvfDAMGR1KSRg1KreBU+72KgRYnf11Hy1UEx84radTvn0Pt1JPDnrHZXLTkWgQSmCukfYIGqJB+yio+x0974peywYqEOlDcfrNaQm0f3tHwRONmcu4azdGT2tVR46fCtSy7i+qUKYQ6inYx2/hSS7WTo9nhCvULTX+0bURFL+1X0oNZhH11bWsKc=
