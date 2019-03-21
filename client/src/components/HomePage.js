@@ -70,9 +70,9 @@ function HomePage(props) {
           </Typography>
         </Grid>
         <Grid container item {...sizes} justify="center" style={{ marginTop: 16}}>
-          <NavLink to={{ pathname: '/enter', search: props.location.search}} className={classes.createButton}>
-            <Button fullWidth variant="contained" color="primary">Create a Bracket Now!</Button>
-          </NavLink>
+          <Button disabled={true} fullWidth variant="contained" color="primary">Create a Bracket Now!</Button>
+          
+          <Typography align="center" variant="caption">The tournament has started, no more entries allowed. View the <NavLink to={{ pathname: '/leaders', search: props.location.search}}>Leaderboard</NavLink> to check your bracket.</Typography>
         </Grid>
 
         <Grid item {...sizes}>
