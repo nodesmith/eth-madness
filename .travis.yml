@@ -26,7 +26,7 @@ before_deploy:
 deploy:
   skip_cleanup: true
   provider: script
-  script: bash ./kubernetes/deploy.sh
+  script: bash ./deploy.sh
   on:
     repo: nodesmith/eth-madness
     branch: master
