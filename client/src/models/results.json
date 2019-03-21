@@ -14,5 +14,13 @@
     "bottomTeamScore": 86,
     "winningTeamId": 13,
     "gameId": 6
+  },
+  "6": {
+    "topTeamId": 52,
+    "topTeamScore": 78,
+    "bottomTeamId": 53,
+    "bottomTeamScore": 77,
+    "winningTeamId": 52,
+    "gameId": 26
   }
 }
