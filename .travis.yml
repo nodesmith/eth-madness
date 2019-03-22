@@ -23,14 +23,14 @@ before_deploy:
 - chmod +x ./aws-iam-authenticator
 - cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$HOME/bin:$PATH
 - kubectl cluster-info --context=aws-us-east --kubeconfig=$TRAVIS_BUILD_DIR/kubeconfig
-- kubectl get pods -l app=eth-madness --context=aws-us-east --kubeconfig=$TRAVIS_BUILD_DIR/kubeconfig
+- kubectl get pods -l app=eth-madness-womens --context=aws-us-east --kubeconfig=$TRAVIS_BUILD_DIR/kubeconfig
 deploy:
   skip_cleanup: true
   provider: script
   script: bash $TRAVIS_BUILD_DIR/deploy.sh
   on:
     repo: nodesmith/eth-madness
-    branch: master
+    branch: ncaaw
 env:
   global:
   - AWS_DEFAULT_REGION=us-east-2
