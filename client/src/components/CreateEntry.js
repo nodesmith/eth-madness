@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
+import { NavLink } from 'react-router-dom';
 import Bracket from './Bracket';
 import BracketMobile from './BracketMobile';
 import CreateEntryToolbar from './CreateEntryToolbar';
@@ -31,7 +37,11 @@ const styles = theme => ({
     right: 0,
     backgroundColor: theme.palette.background.paper,
     zIndex: 2
-  }
+  },
+  viewLeaderboardButton: {
+    marginTop: theme.spacing.unit * 3,
+    textDecoration: 'none'
+  },
 });
 
 /**
@@ -81,6 +91,25 @@ class CreateEntry extends Component {
           />
         </Hidden>
         <SubmitPicksContainer />
+        <Dialog disableBackdropClick={true} disableEscapeKeyDown={true} maxWidth="xs" open={true}>
+          <DialogTitle align="center">The Big Dance Has Begun!</DialogTitle>
+          <DialogContent classes={{root:classes.content}}>
+            <DialogContentText>
+              Since the tournament has already started, we are no longer accepting any more brackets.
+            </DialogContentText>
+            <br />
+            <DialogContentText>
+              You can check your bracket and the overall standings on the  <NavLink
+              to={{ pathname: `/leaders`, search: this.props.location.search}}>Leaderboard</NavLink>.
+            </DialogContentText>
+            <DialogContentText className={classes.viewLeaderboardButton}>
+            <NavLink className={classes.viewLeaderboardButton}
+              to={{ pathname: `/leaders`, search: this.props.location.search}}>
+              <Button fullWidth variant="contained" >View Leaderboard</Button>
+            </NavLink>
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
       </div>
     );
   }
