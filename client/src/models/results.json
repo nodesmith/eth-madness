@@ -7,6 +7,14 @@
     "winningTeamId": 0,
     "gameId": 0
   },
+  "2": {
+    "topTeamId": 4,
+    "topTeamScore": 76,
+    "bottomTeamId": 5,
+    "bottomTeamScore": 80,
+    "winningTeamId": 5,
+    "gameId": 2
+  },
   "4": {
     "topTeamId": 8,
     "topTeamScore": 79,
