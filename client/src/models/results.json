@@ -1,4 +1,12 @@
 {
+  "0": {
+    "topTeamId": 0,
+    "topTeamScore": 85,
+    "bottomTeamId": 1,
+    "bottomTeamScore": 62,
+    "winningTeamId": 0,
+    "gameId": 0
+  },
   "4": {
     "topTeamId": 8,
     "topTeamScore": 79,
