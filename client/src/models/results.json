@@ -263,6 +263,22 @@
     "winningTeamId": 10,
     "gameId": 34
   },
+  "36": {
+    "topTeamId": 16,
+    "topTeamScore": 83,
+    "bottomTeamId": 19,
+    "bottomTeamScore": 71,
+    "winningTeamId": 16,
+    "gameId": 36
+  },
+  "37": {
+    "topTeamId": 21,
+    "topTeamScore": 62,
+    "bottomTeamId": 22,
+    "bottomTeamScore": 90,
+    "winningTeamId": 22,
+    "gameId": 37
+  },
   "39": {
     "topTeamId": 29,
     "topTeamScore": 49,
