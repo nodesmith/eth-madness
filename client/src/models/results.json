@@ -254,5 +254,133 @@
     "bottomTeamScore": 61,
     "winningTeamId": 62,
     "gameId": 31
+  },
+  "32": {
+    "topTeamId": 0,
+    "topTeamScore": 102,
+    "bottomTeamId": 2,
+    "bottomTeamScore": 63,
+    "winningTeamId": 0,
+    "gameId": 32
+  },
+  "33": {
+    "topTeamId": 4,
+    "topTeamScore": 64,
+    "bottomTeamId": 6,
+    "bottomTeamScore": 72,
+    "winningTeamId": 6,
+    "gameId": 33
+  },
+  "34": {
+    "topTeamId": 8,
+    "topTeamScore": 57,
+    "bottomTeamId": 10,
+    "bottomTeamScore": 72,
+    "winningTeamId": 10,
+    "gameId": 34
+  },
+  "35": {
+    "topTeamId": 12,
+    "topTeamScore": 52,
+    "bottomTeamId": 14,
+    "bottomTeamScore": 68,
+    "winningTeamId": 14,
+    "gameId": 35
+  },
+  "36": {
+    "topTeamId": 16,
+    "topTeamScore": 85,
+    "bottomTeamId": 19,
+    "bottomTeamScore": 61,
+    "winningTeamId": 16,
+    "gameId": 36
+  },
+  "37": {
+    "topTeamId": 20,
+    "topTeamScore": 57,
+    "bottomTeamId": 22,
+    "bottomTeamScore": 55,
+    "winningTeamId": 20,
+    "gameId": 37
+  },
+  "38": {
+    "topTeamId": 24,
+    "topTeamScore": 75,
+    "bottomTeamId": 26,
+    "bottomTeamScore": 64,
+    "winningTeamId": 24,
+    "gameId": 38
+  },
+  "39": {
+    "topTeamId": 29,
+    "topTeamScore": 68,
+    "bottomTeamId": 30,
+    "bottomTeamScore": 91,
+    "winningTeamId": 30,
+    "gameId": 39
+  },
+  "40": {
+    "topTeamId": 32,
+    "topTeamScore": 91,
+    "bottomTeamId": 35,
+    "bottomTeamScore": 63,
+    "winningTeamId": 32,
+    "gameId": 40
+  },
+  "41": {
+    "topTeamId": 36,
+    "topTeamScore": 76,
+    "bottomTeamId": 38,
+    "bottomTeamScore": 78,
+    "winningTeamId": 38,
+    "gameId": 41
+  },
+  "42": {
+    "topTeamId": 41,
+    "topTeamScore": 69,
+    "bottomTeamId": 42,
+    "bottomTeamScore": 60,
+    "winningTeamId": 41,
+    "gameId": 42
+  },
+  "43": {
+    "topTeamId": 44,
+    "topTeamScore": 63,
+    "bottomTeamId": 46,
+    "bottomTeamScore": 72,
+    "winningTeamId": 46,
+    "gameId": 43
+  },
+  "44": {
+    "topTeamId": 48,
+    "topTeamScore": 71,
+    "bottomTeamId": 50,
+    "bottomTeamScore": 50,
+    "winningTeamId": 48,
+    "gameId": 44
+  },
+  "45": {
+    "topTeamId": 52,
+    "topTeamScore": 70,
+    "bottomTeamId": 54,
+    "bottomTeamScore": 76,
+    "winningTeamId": 54,
+    "gameId": 45
+  },
+  "46": {
+    "topTeamId": 56,
+    "topTeamScore": 85,
+    "bottomTeamId": 58,
+    "bottomTeamScore": 80,
+    "winningTeamId": 56,
+    "gameId": 46
+  },
+  "47": {
+    "topTeamId": 61,
+    "topTeamScore": 72,
+    "bottomTeamId": 62,
+    "bottomTeamScore": 84,
+    "winningTeamId": 62,
+    "gameId": 47
   }
 }
