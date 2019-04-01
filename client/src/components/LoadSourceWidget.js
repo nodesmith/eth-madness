@@ -6,13 +6,10 @@ const styles = theme => ({
   root: {
     textAlign : 'center',
     fontFamily: 'digital',
-    color: 'red',
+    color: '#419df4',
   },
   timer: {
     height: 50,
-    // width: 150,
-    borderRadius: 2,
-    fontColor: 'red'
   },
   header: {
     paddingTop: theme.spacing.unit,
@@ -20,15 +17,14 @@ const styles = theme => ({
   },
   timerText: {
     lineHeight: '56px',
-    // textAlign : 'center',
-    // fontFamily: 'digital',
-    fontSize: '50px'
+    fontSize: '50px',
+    opacity: .8
   },
   wrapper: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     display: 'inline-block',
-    backgroundColor: 'black'
+    borderRadius: 2,
   },
   period: {
     marginLeft: -7,
@@ -68,7 +64,7 @@ class LoadSourceWidget extends Component {
           this.setState({elapsedTime: this.props.loadingSource.endTime - this.props.loadingSource.startTime});
           window.clearInterval(this.state.intervalId);
         }
-      }, 10);
+      }, 77);
 
       this.setState({intervalId});
     }
@@ -84,7 +80,7 @@ class LoadSourceWidget extends Component {
     
     return (
       <Grid item xl={1} l={2} md={2} s={3} xs={12} key={name} className={classes.root}>
-        <div className={classes.wrapper}>
+        <Paper className={classes.wrapper}>
           <div className={classes.header}>{name}</div>
           <div className={classes.timer}>
             <div className={classes.timerText}>
@@ -93,7 +89,7 @@ class LoadSourceWidget extends Component {
               <span className={classes.milliseconds} >{ms}</span>
             </div>
           </div>
-        </div>
+        </Paper>
       </Grid>
     );
   }
