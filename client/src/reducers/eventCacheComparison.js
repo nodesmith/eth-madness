@@ -4,18 +4,18 @@ const initialState = {
   loadingSources: {
     nodesmith: {
       name: 'Nodesmith',
-      durationMs: 0,
-      isRunning: false
+      startTime: -1,
+      endTime: -1
     },
     infura: {
       name: 'Infura',
-      durationMs: 0,
-      isRunning: false
+      startTime: -1,
+      endTime: -1
     },
     metamask: {
       name: 'Metamask',
-      durationMs: 0,
-      isRunning: true
+      startTime: -1,
+      endTime: -1
     }
   }
 };
@@ -23,17 +23,16 @@ const initialState = {
 const eventCacheComparison = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.LOADING_SOURCES_UPDATE: {
-      const { elapsedMs, infuraDone, nodesmithDone } = action.updateMessage;
+      const { updateFor, startTime, endTime } = action.updateMessage;
       const newState = Object.assign({}, state);
       const newLoadingSources = newState.loadingSources;
-      newLoadingSources.nodesmith.isRunning = !nodesmithDone;
-      if (!nodesmithDone) {
-        newLoadingSources.nodesmith.durationMs = elapsedMs;
+      if (updateFor === 'nodesmith') {
+        newLoadingSources.nodesmith.startTime = startTime;
+        newLoadingSources.nodesmith.endTime = endTime;
       }
-
-      newLoadingSources.infura.isRunning = !infuraDone;
-      if (!infuraDone) {
-        newLoadingSources.infura.durationMs = elapsedMs;
+      if (updateFor === 'infura') {
+        newLoadingSources.infura.startTime = startTime;
+        newLoadingSources.infura.endTime = endTime;
       }
 
       return newState;

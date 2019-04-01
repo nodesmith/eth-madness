@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, Grid, Typography, Paper } from '@material-ui/core';
+import LoadingSourceWidget from './LoadSourceWidget';
 
 const styles = theme => ({
   root: {
     width: '100%',
   },
-  timer: {
-    height: 50,
-    width: 150,
-    backgroundColor: 'black',
-    fontColor: 'red'
-  },
-  timerText: {
-    color: 'red',
-    lineHeight: '50px',
-    textAlign : 'center',
-    fontFamily: 'digital',
-    fontSize: '40px'
+  loadingSourcesContainer: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
   }
 });
 
@@ -35,22 +27,7 @@ const pad = (val, digits) => {
  */
 class EventCacheComparison extends Component {
   createLoadingSourceWidget = (loadingSource) => {
-    const { name, durationMs } = loadingSource;
-    const { classes } = this.props;
-    const seconds = Math.floor(durationMs / 1000);
-    const ms = durationMs - (seconds * 1000);
-    
-    const timeString = pad(seconds, 2) + '.' + pad(ms, 2);
-    return (
-      <Grid item xl={1} l={2} md={2} s={3} xs={12} key={name}>
-        <Typography align="center" variant="body1">{name}</Typography>
-        <div className={classes.timer}>
-          <div className={classes.timerText}>
-            {timeString}
-          </div>
-        </div>
-      </Grid>
-    );
+    return (<LoadingSourceWidget key={loadingSource.name} loadingSource={loadingSource} />);
   }
 
   render = () => {
@@ -61,10 +38,11 @@ class EventCacheComparison extends Component {
       <Paper className={classes.root}>
         <Grid container>
           <Grid item xs={12}>
-            <Typography align="center" variant="h6">Loading Times Scoreboard</Typography>
+            <Typography align="center" variant="h6">Event Logs Loading Time</Typography>
+            <Typography align="center" variant="caption">measures how long it take to load the brackets using different providers</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Grid container justify="center" spacing={24}>
+            <Grid className={classes.loadingSourcesContainer} container justify="center" spacing={24}>
               {loadingSourcesComponents}
             </Grid>
           </Grid>

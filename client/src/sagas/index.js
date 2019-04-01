@@ -1,4 +1,4 @@
-import { all, call, put, takeLeading, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeLeading, takeLatest, fork } from 'redux-saga/effects'
 import queryString from 'query-string';
 import EthMadness from "../contracts/EthMadness.json";
 import Web3 from 'web3';
@@ -132,14 +132,22 @@ function* handleRetrievedEvents(events, web3) {
 
 function* loadPastEventsForContract(contractInstance, loadingSourceName, web3) {
   const startTime = Date.now();
+  const updateMessage = { 
+    updateFor: loadingSourceName,
+    startTime: startTime,
+    endTime: -1
+  };
+  yield put(Actions.loadingSourcesUpdate(updateMessage));
+
   const result = yield call(fetchPastEventsAsync, contractInstance);
 
-  const updateMessage = { 
-    [`${loadingSourceName}Done`]: true,
-    elapsedMs: Date.now() - startTime
+  const doneMessage = { 
+    updateFor: loadingSourceName,
+    startTime: startTime,
+    endTime: Date.now()
   };
 
-  yield put(Actions.loadingSourcesUpdate(updateMessage));
+  yield put(Actions.loadingSourcesUpdate(doneMessage));
   yield call (handleRetrievedEvents, result, web3);
 }
 
@@ -162,50 +170,51 @@ function* loadEntriesFromAllProviders() {
     const web3 = nodesmithWeb3;
 
     const nodesmithTask = yield fork(loadPastEventsForContract, nodesmithContract, 'nodesmith', web3);
-    const infuraTask = yield fork(loadPastEventsForContract, nodesmithContract, 'nodesmith', web3);
+    const infuraTask = yield fork(loadPastEventsForContract, infuraContract, 'infura', web3);
 
-    let infuraResult = undefined;
-    const infuratPromise = fetchPastEventsAsync(infuraContract).then(r => infuraResult = r);
 
-    let nodesmithResult = undefined;
-    const nodesmithPromise = fetchPastEventsAsync(nodesmithContract).then(r => nodesmithResult = r);
+    // let infuraResult = undefined;
+    // const infuratPromise = fetchPastEventsAsync(infuraContract).then(r => infuraResult = r);
 
-    const startTime = Date.now();
-    let handledResults = false;
-    while (!infuraResult || !nodesmithResult) {
-      yield call(delay, 12);
-      const elapsedMs = Date.now() - startTime;
-      const updateMessage = {
-        elapsedMs,
-        infuraDone: false,
-        nodesmithDone: false,
-      }
+    // let nodesmithResult = undefined;
+    // const nodesmithPromise = fetchPastEventsAsync(nodesmithContract).then(r => nodesmithResult = r);
+
+    // const startTime = Date.now();
+    // let handledResults = false;
+    // while (!infuraResult || !nodesmithResult) {
+    //   yield call(delay, 12);
+    //   const elapsedMs = Date.now() - startTime;
+    //   const updateMessage = {
+    //     elapsedMs,
+    //     infuraDone: false,
+    //     nodesmithDone: false,
+    //   }
       
-      if (infuraResult) {
-        if (!handledResults) {
-          yield call (handleRetrievedEvents, infuraResult, web3);
-          handledResults = true;
-        }
+    //   if (infuraResult) {
+    //     if (!handledResults) {
+    //       yield call (handleRetrievedEvents, infuraResult, web3);
+    //       handledResults = true;
+    //     }
 
-        updateMessage.infuraDone = true;
-      }
+    //     updateMessage.infuraDone = true;
+    //   }
 
-      if (nodesmithResult) {
-        if (!handledResults) {
-          yield call (handleRetrievedEvents, nodesmithResult, web3);
-          handledResults = true;
-        }
+    //   if (nodesmithResult) {
+    //     if (!handledResults) {
+    //       yield call (handleRetrievedEvents, nodesmithResult, web3);
+    //       handledResults = true;
+    //     }
 
-        updateMessage.nodesmithDone = true;
-      }
+    //     updateMessage.nodesmithDone = true;
+    //   }
 
-      yield put(Actions.loadingSourcesUpdate(updateMessage));
-    }
+    //   yield put(Actions.loadingSourcesUpdate(updateMessage));
+    // }
 
-    yield put(Actions.loadingSourcesUpdate({
-      infuraDone: true,
-      nodesmithDone: true,
-    }));
+    // yield put(Actions.loadingSourcesUpdate({
+    //   infuraDone: true,
+    //   nodesmithDone: true,
+    // }));
 
   } catch(e) {
     console.error(e);
