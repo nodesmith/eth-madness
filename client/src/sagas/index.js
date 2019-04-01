@@ -8,7 +8,7 @@ import * as ContestState from '../utils/ContestState';
 import { convertEncodedPicksToByteArray } from '../utils/converters';
 import { getWeb3WithAccounts } from '../utils/getWeb3';
 
-const worker = new Worker('/entryProcessor.js');
+// const worker = new Worker('/entryProcessor.js');
 
 const getWeb3ForNetworkId = async (networkId, accountsNeeded) => {
   if (accountsNeeded) {
@@ -100,54 +100,54 @@ const fetchPastEventsAsync = (contractInstance) => {
 const delay = (ms) => new Promise(res => setTimeout(res, ms));
 
 function* handleRetrievedEvents(events, web3) {
-  const fixedUp = events.map(event => {
-    const entryCompressedArray = web3.utils.toBN(event.returnValues.entryCompressed).toArray();
-    while (entryCompressedArray.length < 32) {
-      // Pad the array until we get to 32 bytes
-      entryCompressedArray.unshift(0);
-    }
-
-    return { event, entryCompressedArray }
-  });
-
-  const convertedEvents = yield call(() => {
-    return new Promise((resolve, reject) => {
-      worker.postMessage(fixedUp);
-      worker.onmessage = (e) => {
-        resolve(e.data);
-      }
-    });
-  })
-  
-
-  // const convertedEvents = events.map(event => {
+  // const fixedUp = events.map(event => {
   //   const entryCompressedArray = web3.utils.toBN(event.returnValues.entryCompressed).toArray();
   //   while (entryCompressedArray.length < 32) {
   //     // Pad the array until we get to 32 bytes
   //     entryCompressedArray.unshift(0);
   //   }
 
-  //   const scoreABytes = entryCompressedArray.slice(0, 8);
-  //   const scoreBBytes = entryCompressedArray.slice(8, 16);
+  //   return { event, entryCompressedArray }
+  // });
 
-  //   const scoreA = parseInt(byteArrayToHex(scoreABytes, false), 16);
-  //   const scoreB = parseInt(byteArrayToHex(scoreBBytes, false), 16);
-
-  //   const picksBytes = entryCompressedArray.slice(16, 32);
-  //   const picks = byteArrayToHex(picksBytes, true);
-
-  //   const entryCompressed = byteArrayToHex(entryCompressedArray, true);
-  //   return {
-  //     transactionHash: event.transactionHash,
-  //     entrant: event.returnValues.submitter,
-  //     entryIndex: event.returnValues.entryIndex,
-  //     picks,
-  //     scoreA,
-  //     scoreB,
-  //     entryCompressed,
-  //     message: event.returnValues.bracketName
-  //   };
+  // const convertedEvents = yield call(() => {
+  //   return new Promise((resolve, reject) => {
+  //     worker.postMessage(fixedUp);
+  //     worker.onmessage = (e) => {
+  //       resolve(e.data);
+  //     }
+  //   });
   // })
+  
+
+  const convertedEvents = events.map(event => {
+    const entryCompressedArray = web3.utils.toBN(event.returnValues.entryCompressed).toArray();
+    while (entryCompressedArray.length < 32) {
+      // Pad the array until we get to 32 bytes
+      entryCompressedArray.unshift(0);
+    }
+
+    const scoreABytes = entryCompressedArray.slice(0, 8);
+    const scoreBBytes = entryCompressedArray.slice(8, 16);
+
+    const scoreA = parseInt(byteArrayToHex(scoreABytes, false), 16);
+    const scoreB = parseInt(byteArrayToHex(scoreBBytes, false), 16);
+
+    const picksBytes = entryCompressedArray.slice(16, 32);
+    const picks = byteArrayToHex(picksBytes, true);
+
+    const entryCompressed = byteArrayToHex(entryCompressedArray, true);
+    return {
+      transactionHash: event.transactionHash,
+      entrant: event.returnValues.submitter,
+      entryIndex: event.returnValues.entryIndex,
+      picks,
+      scoreA,
+      scoreB,
+      entryCompressed,
+      message: event.returnValues.bracketName
+    };
+  });
 
   yield put(Actions.setEntries(convertedEvents));
 }
@@ -170,6 +170,7 @@ function* loadPastEventsForContract(contractInstance, loadingSourceName, web3) {
   };
 
   yield put(Actions.loadingSourcesUpdate(doneMessage));
+  yield call(delay, 100);
   yield call (handleRetrievedEvents, result, web3);
 }
 
