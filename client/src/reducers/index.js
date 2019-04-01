@@ -7,6 +7,7 @@ import picks from './picks';
 import contract from './contract';
 import submitPicks from './submitPicks';
 import leaderboard from './leaderboard';
+import eventCacheComparison from './eventCacheComparison';
 
 export default (history) => combineReducers({
   navigation,
@@ -16,5 +17,6 @@ export default (history) => combineReducers({
   picks,
   submitPicks,
   leaderboard,
+  eventCacheComparison,
   router: connectRouter(history)
 });

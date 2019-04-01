@@ -5,7 +5,8 @@ import Leaderboard from '../components/Leaderboard';
 const mapStateToProps = state => ({
   entryCount: state.leaderboard.entryCount,
   searchValue: state.leaderboard.searchValue,
-  data: state.leaderboard.displayedEntries.map(i => state.leaderboard.allEntries[i])
+  data: state.leaderboard.displayedEntries.map(i => state.leaderboard.allEntries[i]),
+  loadingSources: state.eventCacheComparison.loadingSources
 });
 
 const mapDispatchToProps = dispatch => ({

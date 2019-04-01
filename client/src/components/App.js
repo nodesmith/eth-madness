@@ -3,7 +3,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import routes from '../routes/index';
 import PropTypes from 'prop-types';
 import NavBar from'./NavBar';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, createTypography, createPalette } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   typography: {

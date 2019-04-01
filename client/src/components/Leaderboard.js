@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { NavLink } from 'react-router-dom';
 import MadeWithBasketball from './MadeWithBasketball';
+import EventCacheComparison from './EventCacheComparison';
 
 const styles = theme => ({
   root: {
@@ -57,7 +58,7 @@ class Leaderboard extends Component {
 
   render = () => {
     
-    const { classes, entryCount, searchValue, changeSearch, data } = this.props;
+    const { classes, entryCount, searchValue, changeSearch, data, loadingSources, reloadEntries } = this.props;
     const isLoading = entryCount < 0;
     const sizes = { xl: 7, lg: 8, md: 9, sm: 11, xs: 12};
 
@@ -71,6 +72,9 @@ class Leaderboard extends Component {
                 {isLoading ? `Loading...` : `${entryCount} entries`}
               </Typography>
             </div>
+          </Grid>
+          <Grid item {...sizes}>
+            <EventCacheComparison loadingSources={loadingSources} reloadData={reloadEntries}/>
           </Grid>
           <Grid item {...sizes}>
           <div className={classes.searchContainer}>
@@ -132,6 +136,7 @@ Leaderboard.propTypes = {
   reloadEntries: PropTypes.func.isRequired,
   searchValue: PropTypes.string.isRequired, 
   changeSearch: PropTypes.func.isRequired,
+  loadingSources: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Leaderboard);
