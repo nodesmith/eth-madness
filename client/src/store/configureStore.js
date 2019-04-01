@@ -14,12 +14,6 @@ export default function configureStore() {
   // create the saga middleware
   const sagaMiddleware = createSagaMiddleware();
 
-
-  if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-
-  } else {
-
-  }
   const store = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ? 
   createStore(
     reducer, // root reducer with router state

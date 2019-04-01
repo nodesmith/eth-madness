@@ -57,9 +57,18 @@ class LoadSourceWidget extends Component {
         window.clearInterval(this.state.intervalId);
       }
 
+      const name = this.props.loadingSource.name;
+
       const intervalId = window.setInterval(() => {
         if (this.props.loadingSource.endTime === -1) {
-          this.setState({elapsedTime: Date.now() - this.props.loadingSource.startTime});
+          const elapsedTime = Date.now() - this.props.loadingSource.startTime;
+          this.setState({elapsedTime});
+
+          const seconds = pad(Math.floor(elapsedTime / 1000), 2);
+          document.getElementById(`${name}_seconds`).innerHTML = seconds;
+
+          const ms = pad(elapsedTime - (seconds * 1000), 2);
+          document.getElementById(`${name}_ms`).innerHTML = ms;
         } else {
           this.setState({elapsedTime: this.props.loadingSource.endTime - this.props.loadingSource.startTime});
           window.clearInterval(this.state.intervalId);
@@ -84,9 +93,9 @@ class LoadSourceWidget extends Component {
           <div className={classes.header}>{name}</div>
           <div className={classes.timer}>
             <div className={classes.timerText}>
-              <span className={classes.seconds} >{seconds}</span>
+              <span id={`${name}_seconds`} className={classes.seconds} >{seconds}</span>
               <span className={classes.period} >{'.'}</span>
-              <span className={classes.milliseconds} >{ms}</span>
+              <span id={`${name}_ms`} className={classes.milliseconds} >{ms}</span>
             </div>
           </div>
         </Paper>
