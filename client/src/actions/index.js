@@ -49,3 +49,6 @@ export const picksSubmissionFailed = (reason) => ({type: ActionTypes.PICKS_SUBMI
 export const picksSubmittedSuccessfully = (transactionHash, entryIndex) => 
   ({type: ActionTypes.PICKS_SUBMITTED_SUCCESSFULLY, transactionHash, entryIndex});
 
+export const loadingSourcesUpdate = (updateMessage) => ({
+  type: ActionTypes.LOADING_SOURCES_UPDATE, updateMessage
+});
