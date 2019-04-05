@@ -67,6 +67,14 @@ const getInfuraWeb3 = async (networkId) => {
   }
 }
 
+const getMetamaskWeb3 = async (networkId) => {
+  if (window.ethereum) {
+    return new Web3(window.ethereum);
+  } else {
+    return undefined;
+  }
+}
+
 export const getContractInstance = async (accountsNeeded, web3) => {
   const parsedQs = queryString.parse(window.location.search);
   const networkId = parsedQs['networkId'] || '1';
@@ -100,26 +108,6 @@ const fetchPastEventsAsync = (contractInstance) => {
 const delay = (ms) => new Promise(res => setTimeout(res, ms));
 
 function* handleRetrievedEvents(events, web3) {
-  // const fixedUp = events.map(event => {
-  //   const entryCompressedArray = web3.utils.toBN(event.returnValues.entryCompressed).toArray();
-  //   while (entryCompressedArray.length < 32) {
-  //     // Pad the array until we get to 32 bytes
-  //     entryCompressedArray.unshift(0);
-  //   }
-
-  //   return { event, entryCompressedArray }
-  // });
-
-  // const convertedEvents = yield call(() => {
-  //   return new Promise((resolve, reject) => {
-  //     worker.postMessage(fixedUp);
-  //     worker.onmessage = (e) => {
-  //       resolve(e.data);
-  //     }
-  //   });
-  // })
-  
-
   const convertedEvents = events.map(event => {
     const entryCompressedArray = web3.utils.toBN(event.returnValues.entryCompressed).toArray();
     while (entryCompressedArray.length < 32) {
@@ -180,64 +168,26 @@ function* loadEntriesFromAllProviders() {
 
   try {
       
-    const { nodesmithContract, infuraContract, nodesmithWeb3 } = yield call(async () => {
+    const { nodesmithContract, infuraContract, metamaskContract, nodesmithWeb3 } = yield call(async () => {
       const nodesmithWeb3 = await getNodesmithWeb3(networkId);
       const nodesmithContract = (await getContractInstance(false, nodesmithWeb3)).contractInstance;
 
       const infuraWeb3 = await getInfuraWeb3(networkId);
       const infuraContract = (await getContractInstance(false, infuraWeb3)).contractInstance;
 
-      return { nodesmithContract, infuraContract, nodesmithWeb3 }
+      const metamaskWeb3 = await getMetamaskWeb3(networkId);
+      const metamaskContract = metamaskWeb3 ? (await getContractInstance(false, metamaskWeb3)).contractInstance : undefined;
+
+      return { nodesmithContract, infuraContract, metamaskContract, nodesmithWeb3 }
     });
 
     const web3 = nodesmithWeb3;
 
     const nodesmithTask = yield fork(loadPastEventsForContract, nodesmithContract, 'nodesmith', web3);
     const infuraTask = yield fork(loadPastEventsForContract, infuraContract, 'infura', web3);
-
-
-    // let infuraResult = undefined;
-    // const infuratPromise = fetchPastEventsAsync(infuraContract).then(r => infuraResult = r);
-
-    // let nodesmithResult = undefined;
-    // const nodesmithPromise = fetchPastEventsAsync(nodesmithContract).then(r => nodesmithResult = r);
-
-    // const startTime = Date.now();
-    // let handledResults = false;
-    // while (!infuraResult || !nodesmithResult) {
-    //   yield call(delay, 12);
-    //   const elapsedMs = Date.now() - startTime;
-    //   const updateMessage = {
-    //     elapsedMs,
-    //     infuraDone: false,
-    //     nodesmithDone: false,
-    //   }
-      
-    //   if (infuraResult) {
-    //     if (!handledResults) {
-    //       yield call (handleRetrievedEvents, infuraResult, web3);
-    //       handledResults = true;
-    //     }
-
-    //     updateMessage.infuraDone = true;
-    //   }
-
-    //   if (nodesmithResult) {
-    //     if (!handledResults) {
-    //       yield call (handleRetrievedEvents, nodesmithResult, web3);
-    //       handledResults = true;
-    //     }
-
-    //     updateMessage.nodesmithDone = true;
-    //   }
-
-    //   yield put(Actions.loadingSourcesUpdate(updateMessage));
-    // }
-
-    // yield put(Actions.loadingSourcesUpdate({
-    //   infuraDone: true,
-    //   nodesmithDone: true,
-    // }));
+    if (metamaskContract) {
+      const metamaskTask = yield fork(loadPastEventsForContract, metamaskContract, 'metamask', web3);
+    }
 
   } catch(e) {
     console.error(e);

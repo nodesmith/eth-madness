@@ -34,7 +34,10 @@ const eventCacheComparison = (state = initialState, action) => {
         newLoadingSources.infura.startTime = startTime;
         newLoadingSources.infura.endTime = endTime;
       }
-
+      if (updateFor === 'metamask') {
+        newLoadingSources.metamask.startTime = startTime;
+        newLoadingSources.metamask.endTime = endTime;
+      }
       return newState;
     }
     default:
