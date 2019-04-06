@@ -447,6 +447,14 @@
     "winningTeamId": 62,
     "gameId": 55
   },
+  "56": {
+    "topTeamId": 0,
+    "topTeamScore": 85,
+    "bottomTeamId": 14,
+    "bottomTeamScore": 53,
+    "winningTeamId": 0,
+    "gameId": 56
+  },
   "57": {
     "topTeamId": 16,
     "topTeamScore": 84,
@@ -454,6 +462,14 @@
     "bottomTeamScore": 88,
     "winningTeamId": 30,
     "gameId": 57
+  },
+  "58": {
+    "topTeamId": 32,
+    "topTeamScore": 84,
+    "bottomTeamId": 46,
+    "bottomTeamScore": 68,
+    "winningTeamId": 32,
+    "gameId": 58
   },
   "59": {
     "topTeamId": 48,
