@@ -108,8 +108,7 @@ function HomePage(props) {
         </ol>
 
           <Typography className={classes.bodyText}>
-            That was a bit of a simplification - for all the nitty, gritty details - <a href="https://github.com/nodesmith/eth-madness">check out the code yourself</a>! Everything is open source.  One thing to note, there 
-            will be no ties.  The contract will not allow you to submit the exact same bracket as another person.
+            That was a bit of a simplification - for all the nitty, gritty details - <a href="https://github.com/nodesmith/eth-madness">check out the code yourself</a>! Everything is open source.  Two things to note: the contract will not allow you to submit the exact same bracket as another person, and in the case of a tie after the final score tiebreaker, the winner will be the bracket submitted earliest.
           </Typography>
           <Typography style={{marginTop: 16}} className={classes.bodyText}>
             The smart contract can be found here: <a href="https://etherscan.io/address/0x10e612F9c80ed35D74a6B34aAeb18Db881cCB51E">0x10e612F9c80ed35D74a6B34aAeb18Db881cCB51E</a>
