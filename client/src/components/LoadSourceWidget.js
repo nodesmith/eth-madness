@@ -25,6 +25,9 @@ const styles = theme => {
     timer: {
       height: 50,
     },
+    actualTime: {
+      display: 'inline-block'
+    },
     header: {
       paddingTop: theme.spacing.unit,
       fontSize: 18,
@@ -44,34 +47,35 @@ const styles = theme => {
       marginLeft: -7,
       marginRight: -7,
       display: 'inline-block',
-      // padding: 0,
-      transform: 'translateY(-9px)'
     },
-    cell: {
-      display: 'inline-block',
-      overflow: 'hidden',
-      height: 50
+    one: {
+      opacity: 0,
+      animation: 'dot 1.0s infinite',
+      animationDelay: '0.0s'
     },
-    cells10000: {
-      animation: 'cell-transition 100s steps(10, end) infinite paused'
+    two: {
+      opacity: 0,
+      animation: 'dot 1.0s infinite',
+      animationDelay: '0.1s'
     },
-    cells1000: {
-      animation: 'cell-transition 10s steps(10, end) infinite paused'
+    three: {
+      opacity: 0,
+      animation: 'dot 1.0s infinite',
+      animationDelay: '0.2s'
     },
-    cells100: {
-      animation: 'cell-transition 1s steps(10, end) infinite paused'
+    four: {
+      opacity: 0,
+      animation: 'dot 1.0s infinite',
+      animationDelay: '0.3s'
     },
-    cells10: {
-      animation: 'cell-transition 100ms steps(10, end) infinite paused'
+    '@keyframes dot': {
+      '0%': { opacity: 0 },
+      '50%': { opacity: 0 },
+      '100%': { opacity: 1 }
     },
-    running: {
-      animationPlayState: 'running'
-    },
-    paused: {
-      animationPlayState: 'paused'
-    },
-    '@keyframes cell-transition': keyFrames,
-    
+    loadingDots: {
+      transform: 'translateY(-16px)'
+    }
   }
 };
 
@@ -88,69 +92,14 @@ const pad = (val, digits) => {
  * Component for comparing different web3 providers
  */
 class LoadSourceWidget extends Component {
-  state = {
-    elapsedTime: 0,
-    intervalId: -1,
-    isRunning: false
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    const { startTime, endTime } = this.props.loadingSource;
-    const { isRunning } = this.state;
-    if (startTime !== -1 && endTime === -1 && !isRunning) {
-      this.setState({isRunning: true});
-    } else if (endTime !== -1 && isRunning) {
-      this.setState({isRunning: false});
-    }
-
-    //   // Start the timer
-    //   if (this.state.intervalId !== -1) {
-    //     window.clearInterval(this.state.intervalId);
-    //   }
-
-    //   const name = this.props.loadingSource.name;
-
-    //   const intervalId = window.setInterval(() => {
-    //     if (this.props.loadingSource.endTime === -1) {
-    //       const elapsedTime = Date.now() - this.props.loadingSource.startTime;
-    //       this.setState({elapsedTime});
-
-    //       const seconds = pad(Math.floor(elapsedTime / 1000), 2);
-    //       document.getElementById(`${name}_seconds`).innerHTML = seconds;
-
-    //       const ms = pad(elapsedTime - (seconds * 1000), 2);
-    //       document.getElementById(`${name}_ms`).innerHTML = ms;
-    //     } else {
-    //       this.setState({elapsedTime: this.props.loadingSource.endTime - this.props.loadingSource.startTime});
-    //       window.clearInterval(this.state.intervalId);
-    //     }
-    //   }, 77);
-
-    //   this.setState({intervalId});
-    // }
-  }
-
-  createCell = (durationMs) => {
-    const { classes } = this.props;
-    const items = [];
-    for (let i = 0; i < 10; i++) {
-      items.push((<div key={`${i}_${durationMs}`} className={classes.cellNumber}>{i}</div>));
-    }
-
-    const stateClass = this.state.isRunning ? classes.running : classes.paused;
-    return (
-      <div className={classes.cell}>
-        <div className={[classes[`cells${durationMs}`], stateClass].join(' ')} >
-        {items}
-       </div>
-      </div>
-    )
-  }
 
   render = () => {
-    const { classes, loadingSource } = this.props;
-    const { elapsedTime } = this.state;
+    const { classes, loadingSource, processedBrackets } = this.props;
     const { name } = loadingSource;
+
+    const { startTime, endTime } = this.props.loadingSource;
+    const elapsedTime = endTime - startTime;
+    let isRunning = (startTime !== -1 && endTime === -1) || !processedBrackets;
 
     const seconds = pad(Math.floor(elapsedTime / 1000), 2);
     const ms = pad(elapsedTime - (seconds * 1000), 2);
@@ -161,15 +110,25 @@ class LoadSourceWidget extends Component {
           <div className={classes.header}>{name}</div>
           <div className={classes.timer}>
             <div className={classes.timerText}>
-              {this.createCell(10000)}
-              {this.createCell(1000)}
-              <div className={classes.period} >{'.'}</div>
-              {this.createCell(100)}
-              {this.createCell(10)}
-{/*               
-              <span id={`${name}_seconds`} className={classes.seconds} >{seconds}</span>
-              <span className={classes.period} >{'.'}</span>
-              <span id={`${name}_ms`} className={classes.milliseconds} >{ms}</span> */}
+              <div>
+              {
+                isRunning ? 
+                (
+                  <div className={classes.loadingDots}>
+                    <span className={classes.one}>.</span>
+                    <span className={classes.two}>.</span>
+                    <span className={classes.three}>.</span>
+                    <span className={classes.four}>.</span>
+                  </div>)
+                :
+                (
+                  <div className={classes.actualTime} >
+                    <span id={`${name}_seconds`} className={classes.seconds} >{seconds}</span>
+                    <span className={classes.period} >{'.'}</span>
+                    <span id={`${name}_ms`} className={classes.milliseconds} >{ms}</span>
+                  </div>)
+              }
+              </div>  
             </div>
           </div>
         </Paper>
@@ -181,6 +140,7 @@ class LoadSourceWidget extends Component {
 LoadSourceWidget.propTypes = {
   classes: PropTypes.object.isRequired,
   loadingSource: PropTypes.object.isRequired,
+  processedBrackets: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(LoadSourceWidget);

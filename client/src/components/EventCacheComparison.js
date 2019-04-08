@@ -27,7 +27,7 @@ const pad = (val, digits) => {
  */
 class EventCacheComparison extends Component {
   createLoadingSourceWidget = (loadingSource) => {
-    return (<LoadingSourceWidget key={loadingSource.name} loadingSource={loadingSource} />);
+    return (<LoadingSourceWidget processedBrackets={this.props.processedBrackets} key={loadingSource.name} loadingSource={loadingSource} />);
   }
 
   render = () => {
@@ -52,7 +52,8 @@ class EventCacheComparison extends Component {
 EventCacheComparison.propTypes = {
   classes: PropTypes.object.isRequired,
   loadingSources: PropTypes.object.isRequired,
-  reloadData: PropTypes.func.isRequired
+  reloadData: PropTypes.func.isRequired,
+  processedBrackets: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(EventCacheComparison);

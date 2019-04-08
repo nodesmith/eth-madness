@@ -74,7 +74,7 @@ class Leaderboard extends Component {
             </div>
           </Grid>
           <Grid item {...sizes}>
-            <EventCacheComparison loadingSources={loadingSources} reloadData={reloadEntries}/>
+            <EventCacheComparison processedBrackets={!isLoading} loadingSources={loadingSources} reloadData={reloadEntries}/>
           </Grid>
           <Grid item {...sizes}>
           <div className={classes.searchContainer}>
