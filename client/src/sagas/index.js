@@ -61,17 +61,9 @@ export const getContractInstance = async (accountsNeeded, web3) => {
 }
 
 const fetchPastEventsAsync = (contractInstance) => {
-  return new Promise((resolve, reject) => {
-    contractInstance.getPastEvents('EntrySubmitted', {
-      fromBlock: '0x0',
-      toBlock: 'latest'
-    }, (error, events) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(events);
-      }
-    });
+  return contractInstance.getPastEvents('EntrySubmitted', {
+    fromBlock: '0x0',
+    toBlock: 'latest'
   });
 }
 
