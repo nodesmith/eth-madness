@@ -23,20 +23,17 @@ const initialState = {
 const eventCacheComparison = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.LOADING_SOURCES_UPDATE: {
-      const { updateFor, startTime, endTime } = action.updateMessage;
+      const { updateFor } = action.updateMessage;
       const newState = Object.assign({}, state);
       const newLoadingSources = newState.loadingSources;
       if (updateFor === 'nodesmith') {
-        newLoadingSources.nodesmith.startTime = startTime;
-        newLoadingSources.nodesmith.endTime = endTime;
+        newLoadingSources.nodesmith = Object.assign({}, newLoadingSources.nodesmith, action.updateMessage);
       }
       if (updateFor === 'infura') {
-        newLoadingSources.infura.startTime = startTime;
-        newLoadingSources.infura.endTime = endTime;
+        newLoadingSources.infura = Object.assign({}, newLoadingSources.infura, action.updateMessage);
       }
       if (updateFor === 'metamask') {
-        newLoadingSources.metamask.startTime = startTime;
-        newLoadingSources.metamask.endTime = endTime;
+        newLoadingSources.metamask = Object.assign({}, newLoadingSources.metamask, action.updateMessage);
       }
       return newState;
     }

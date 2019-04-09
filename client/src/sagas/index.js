@@ -7,6 +7,7 @@ import * as Actions from '../actions';
 import * as ContestState from '../utils/ContestState';
 import { convertEncodedPicksToByteArray } from '../utils/converters';
 import { getWeb3WithAccounts } from '../utils/getWeb3';
+import { getNodesmithWeb3, getInfuraWeb3, getMetamaskWeb3 } from './providers';
 
 // const worker = new Worker('/entryProcessor.js');
 
@@ -43,38 +44,6 @@ const getWeb3ForNetworkId = async (networkId, accountsNeeded) => {
   }
 }
 
-const getNodesmithWeb3 = async (networkId) => {
-  const nsApiKey = '69bbfd65cae84e6bae3c62c2bde588c6';
-  switch(networkId) {
-    case '42':
-      return new Web3(new Web3.providers.HttpProvider(`https://ethereum.api.nodesmith.io/v1/kovan/jsonrpc?apiKey=${nsApiKey}`));
-    case '1':
-      return new Web3(new Web3.providers.HttpProvider(`https://ethereum.api.nodesmith.io/v1/mainnet/jsonrpc?apiKey=${nsApiKey}`));
-    default:
-      throw new Error(`Unknown network id ${networkId}`);
-  }
-}
-
-const getInfuraWeb3 = async (networkId) => {
-  const projectId = 'da0307e917e4414f9ec40a5e95548eb3'
-  switch(networkId) {
-    case '42':
-      return new Web3(new Web3.providers.HttpProvider(`https://kovan.infura.io/v3/${projectId}`)); 
-    case '1':
-      return new Web3(new Web3.providers.HttpProvider(`https://mainnet.infura.io/v3/${projectId}`));
-    default:
-      throw new Error(`Unknown network id ${networkId}`);
-  }
-}
-
-const getMetamaskWeb3 = async (networkId) => {
-  if (window.ethereum) {
-    return new Web3(window.ethereum);
-  } else {
-    return undefined;
-  }
-}
-
 export const getContractInstance = async (accountsNeeded, web3) => {
   const parsedQs = queryString.parse(window.location.search);
   const networkId = parsedQs['networkId'] || '1';
@@ -82,6 +51,7 @@ export const getContractInstance = async (accountsNeeded, web3) => {
   if (!web3) {
     web3 = await getWeb3ForNetworkId(networkId, accountsNeeded);
   }
+
   const contractInstance = new web3.eth.Contract(
     EthMadness.abi,
     deployedNetwork.address,
@@ -105,11 +75,9 @@ const fetchPastEventsAsync = (contractInstance) => {
   });
 }
 
-const delay = (ms) => new Promise(res => setTimeout(res, ms));
-
-function* handleRetrievedEvents(events, web3) {
+function* handleRetrievedEvents(events) {
   const convertedEvents = events.map(event => {
-    const entryCompressedArray = web3.utils.toBN(event.returnValues.entryCompressed).toArray();
+    const entryCompressedArray = new Web3().utils.toBN(event.returnValues.entryCompressed).toArray();
     while (entryCompressedArray.length < 32) {
       // Pad the array until we get to 32 bytes
       entryCompressedArray.unshift(0);
@@ -140,26 +108,38 @@ function* handleRetrievedEvents(events, web3) {
   yield put(Actions.setEntries(convertedEvents));
 }
 
-function* loadPastEventsForContract(contractInstance, loadingSourceName, web3) {
-  const startTime = Date.now();
-  const updateMessage = { 
-    updateFor: loadingSourceName,
-    startTime: startTime,
-    endTime: -1
-  };
-  yield put(Actions.loadingSourcesUpdate(updateMessage));
+function* loadPastEventsForContract(contractInstance, loadingSourceName) {
+  try {
+    if (!contractInstance) {
+      throw new Error(`${loadingSourceName} is not installed`);
+    }
+  
+    const startTime = Date.now();
+    const updateMessage = { 
+      updateFor: loadingSourceName,
+      startTime: startTime,
+      endTime: -1
+    };
 
-  const result = yield call(fetchPastEventsAsync, contractInstance);
+    console.log(`Starting loading for ${loadingSourceName} at ${startTime}`);
+    yield put(Actions.loadingSourcesUpdate(updateMessage));
+    const result = yield call(fetchPastEventsAsync, contractInstance);
 
-  const doneMessage = { 
-    updateFor: loadingSourceName,
-    startTime: startTime,
-    endTime: Date.now()
-  };
+    const endTime = Date.now();
+    console.log(`Finished loading for ${loadingSourceName} at ${endTime}. Duration ${endTime - startTime}ms`);
 
-  yield put(Actions.loadingSourcesUpdate(doneMessage));
-  yield call(delay, 100);
-  yield call (handleRetrievedEvents, result, web3);
+    const doneMessage = { 
+      updateFor: loadingSourceName,
+      startTime: startTime,
+      endTime
+    };
+  
+    yield put(Actions.loadingSourcesUpdate(doneMessage));
+    yield call (handleRetrievedEvents, result);
+  } catch (e) {
+    yield put(Actions.loadingSourcesUpdate({updateFor: loadingSourceName, error: e.toString()}));
+  }
+  
 }
 
 function* loadEntriesFromAllProviders() {
@@ -168,7 +148,7 @@ function* loadEntriesFromAllProviders() {
 
   try {
       
-    const { nodesmithContract, infuraContract, metamaskContract, nodesmithWeb3 } = yield call(async () => {
+    const { nodesmithContract, infuraContract, metamaskContract } = yield call(async () => {
       const nodesmithWeb3 = await getNodesmithWeb3(networkId);
       const nodesmithContract = (await getContractInstance(false, nodesmithWeb3)).contractInstance;
 
@@ -178,16 +158,12 @@ function* loadEntriesFromAllProviders() {
       const metamaskWeb3 = await getMetamaskWeb3(networkId);
       const metamaskContract = metamaskWeb3 ? (await getContractInstance(false, metamaskWeb3)).contractInstance : undefined;
 
-      return { nodesmithContract, infuraContract, metamaskContract, nodesmithWeb3 }
+      return { nodesmithContract, infuraContract, metamaskContract }
     });
 
-    const web3 = nodesmithWeb3;
-
-    const nodesmithTask = yield fork(loadPastEventsForContract, nodesmithContract, 'nodesmith', web3);
-    const infuraTask = yield fork(loadPastEventsForContract, infuraContract, 'infura', web3);
-    if (metamaskContract) {
-      const metamaskTask = yield fork(loadPastEventsForContract, metamaskContract, 'metamask', web3);
-    }
+    yield fork(loadPastEventsForContract, metamaskContract, 'metamask');
+    yield fork(loadPastEventsForContract, infuraContract, 'infura');
+    yield fork(loadPastEventsForContract, nodesmithContract, 'nodesmith');
 
   } catch(e) {
     console.error(e);

@@ -2,17 +2,17 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: eth-madness
-  name: eth-madness
+    app: eth-madness-compare
+  name: eth-madness-compare
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: eth-madness
+      app: eth-madness-compare
   template:
     metadata:
       labels:
-        app: eth-madness
+        app: eth-madness-compare
     spec:
       containers:
       - image: nodesmith/eth-madness:latest
@@ -38,8 +38,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: eth-madness
-  name: eth-madness
+    app: eth-madness-compare
+  name: eth-madness-compare
 spec:
   ports:
   - name: http
@@ -47,7 +47,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: eth-madness
+    app: eth-madness-compare
   type: ClusterIP
 
 ---
@@ -60,16 +60,16 @@ metadata:
     ingress.kubernetes.io/ssl-redirect: "true"
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
-  name: eth-madness
+  name: eth-madness-compare
 spec:
   rules:
-  - host: ethmadness.com
+  - host: compare.ethmadness.com
     http:
       paths:
       - backend:
-          serviceName: eth-madness
+          serviceName: eth-madness-compare
           servicePort: 80
   tls:
   - hosts:
-    - ethmadness.com
-    secretName: eth-madness-cert
+    - compare.ethmadness.com
+    secretName: eth-madness-compare-cert

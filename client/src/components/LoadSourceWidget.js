@@ -1,21 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, Button, Grid, Typography, Paper } from '@material-ui/core';
+import { withStyles, Grid, Tooltip, Paper } from '@material-ui/core';
 
 const styles = theme => {
-  // const keyFrames = {};
-  // for (let i = 0; i <= 10; i++) {
-  //   keyFrames[`${i * 10}%`] = {
-  //     transform: `translateY(${(-i % 10) * 56}px)`
-  //   }
-  // }
-
-  const keyFrames = {
-    to: {
-      transform: `translateY(${-10 * 56}px)`
-    }
-  }
-
   return {
     root: {
       textAlign : 'center',
@@ -42,6 +29,7 @@ const styles = theme => {
       paddingRight: theme.spacing.unit,
       display: 'inline-block',
       borderRadius: 2,
+      width: 120
     },
     period: {
       marginLeft: -7,
@@ -75,6 +63,10 @@ const styles = theme => {
     },
     loadingDots: {
       transform: 'translateY(-16px)'
+    },
+    errorMessage: {
+      color: theme.palette.error.light,
+      lineHeight: '56px',
     }
   }
 };
@@ -93,41 +85,55 @@ const pad = (val, digits) => {
  */
 class LoadSourceWidget extends Component {
 
-  render = () => {
-    const { classes, loadingSource, processedBrackets } = this.props;
-    const { name } = loadingSource;
+  getLoadingSourceContent = () => {
+    const { classes, processedBrackets } = this.props;
 
-    const { startTime, endTime } = this.props.loadingSource;
+    const { startTime, endTime, error } = this.props.loadingSource;
     const elapsedTime = endTime - startTime;
     let isRunning = (startTime !== -1 && endTime === -1) || !processedBrackets;
-
     const seconds = pad(Math.floor(elapsedTime / 1000), 2);
     const ms = pad(elapsedTime - (seconds * 1000), 2);
+
+    if (error) {
+      return (
+        <Tooltip title={error}>
+          <div className={classes.error}>
+            <span className={classes.errorMessage}>error</span>
+          </div>
+        </Tooltip>
+      )
+    }
+
+    if (isRunning) {
+      return (
+        <div className={classes.loadingDots}>
+          <span className={classes.one}>.</span>
+          <span className={classes.two}>.</span>
+          <span className={classes.three}>.</span>
+          <span className={classes.four}>.</span>
+        </div>);
+    } else {
+      return (
+        <div className={classes.actualTime} >
+          <span className={classes.seconds} >{seconds}</span>
+          <span className={classes.period} >{'.'}</span>
+          <span className={classes.milliseconds} >{ms}</span>
+        </div>);
+    }
+  }
+
+  render = () => {
+    const { classes, loadingSource } = this.props;
+    const { name } = loadingSource;
     
     return (
-      <Grid item xl={1} l={2} md={2} s={3} xs={12} key={name} className={classes.root}>
+      <Grid item xl={1} l={2} md={3} s={3} xs={12} key={name} className={classes.root}>
         <Paper className={classes.wrapper}>
           <div className={classes.header}>{name}</div>
           <div className={classes.timer}>
             <div className={classes.timerText}>
               <div>
-              {
-                isRunning ? 
-                (
-                  <div className={classes.loadingDots}>
-                    <span className={classes.one}>.</span>
-                    <span className={classes.two}>.</span>
-                    <span className={classes.three}>.</span>
-                    <span className={classes.four}>.</span>
-                  </div>)
-                :
-                (
-                  <div className={classes.actualTime} >
-                    <span id={`${name}_seconds`} className={classes.seconds} >{seconds}</span>
-                    <span className={classes.period} >{'.'}</span>
-                    <span id={`${name}_ms`} className={classes.milliseconds} >{ms}</span>
-                  </div>)
-              }
+                { this.getLoadingSourceContent() }
               </div>  
             </div>
           </div>

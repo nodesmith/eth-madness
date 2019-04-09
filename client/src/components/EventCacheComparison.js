@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, Button, Grid, Typography, Paper } from '@material-ui/core';
+import { withStyles, Grid, Typography } from '@material-ui/core';
 import LoadingSourceWidget from './LoadSourceWidget';
 
 const styles = theme => ({
@@ -13,15 +13,6 @@ const styles = theme => ({
   }
 });
 
-const pad = (val, digits) => {
-  let res = val.toString();
-  while (res.length < digits) {
-    res = '0' + res;
-  }
-
-  return res;
-}
-
 /**
  * Component for comparing different web3 providers
  */
@@ -31,13 +22,13 @@ class EventCacheComparison extends Component {
   }
 
   render = () => {
-    const { classes, loadingSources, reloadData } = this.props;
+    const { classes, loadingSources } = this.props;
     const loadingSourcesComponents = Object.keys(loadingSources).map(l => this.createLoadingSourceWidget(loadingSources[l]));
     return (
         <Grid className={classes.root} container>
           <Grid item xs={12}>
-            <Typography align="center" variant="h6">Event Logs Loading Time</Typography>
-            <Typography align="center" variant="caption">Measures how long it take to load the brackets using different providers</Typography>
+            <Typography align="center" variant="h6">Loading Times</Typography>
+            <Typography align="center" variant="caption">Loads the brackets from the contract using different web3 providers. <a target="_blank" rel="noopener noreferrer" href="https://medium.com/nodesmith-blog/smart-contract-event-cache-51519aa6a57d">Learn More</a></Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid className={classes.loadingSourcesContainer} container justify="center" spacing={24}>
