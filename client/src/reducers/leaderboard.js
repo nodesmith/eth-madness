@@ -14,7 +14,7 @@ const initialState = {
   displayedEntries: [],
   sortBy: 'score',
   resultsByGameId,
-  searchValue: ''
+  searchValue: '',
 };
 
 const eliminatedTeamIds = {
@@ -69,7 +69,22 @@ const applySort = (allEntries, sortBy, searchValue) => {
   }
 
   entriesClone.sort((left, right) => {
+    
     if (right[0].score === left[0].score) {
+      if (resultsByGameId[62]) {
+        // We have a final score and a tie
+        const teamAScore = Math.max(resultsByGameId[62].topTeamScore, resultsByGameId[62].bottomTeamScore);
+        const teamBScore = Math.min(resultsByGameId[62].topTeamScore, resultsByGameId[62].bottomTeamScore);
+        console.log(`Finals score was ${teamAScore} - ${teamBScore}`);
+
+        const leftTotalDifference = Math.abs(teamAScore - left[0].scoreA) + Math.abs(teamBScore - left[0].scoreB);
+        const rightTotalDifference = Math.abs(teamAScore - right[0].scoreA) + Math.abs(teamBScore - right[0].scoreB);
+
+        if (rightTotalDifference !== leftTotalDifference) {
+          return leftTotalDifference - rightTotalDifference;
+        }
+      }
+
       return left[0].entryIndex - right[0].entryIndex;
     }
 
